@@ -1,6 +1,6 @@
 
 import { mount } from 'vue-test-utils'
-import Error404 from '@/components/Error404'
+import Error404 from '@/pages/Error404'
 import { QBtn } from 'quasar'
 import Vue from 'vue'
 
