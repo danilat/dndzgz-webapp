@@ -3,7 +3,7 @@
     <gmap-map
     :center="center"
     :zoom="7"
-    style=""
+    :options="{disableDefaultUI:true, zoomControl: true}"
   >
       <gmap-marker
         :key="index"
