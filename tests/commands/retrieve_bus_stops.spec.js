@@ -17,6 +17,7 @@ describe('Retrieve All Bus Stops', () => {
 
     retrieveAllBusStops(backendApiClientDouble).then((stops) => {
       expect(stops.length).toEqual(1)
+      expect(stops[0].lng).toEqual(locations[0].lon)
     })
   })
 })

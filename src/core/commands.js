@@ -1,9 +1,13 @@
-export const retrieveAllBusStops = ((backendApiClient)=>{
+export const retrieveAllBusStops = (backendApiClient) => {
   return backendApiClient('bus').then((response) => {
-    return Promise.resolve(response.locations)
+    const locations = response.locations.map((location) => {
+      location.lng = location.lon
+      return location
+    })
+    return Promise.resolve(locations)
   })
-})
+}
 
-export const retrieveBusStopEstimation = ((backendApiClient, id)=>{
+export const retrieveBusStopEstimation = (backendApiClient, id) => {
   return backendApiClient('bus', id)
-})
+}
