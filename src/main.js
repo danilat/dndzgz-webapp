@@ -13,9 +13,17 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 import Vue from 'vue'
 import Quasar from 'quasar'
 import router from './router'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: '',
+    v: ''
+  }
+})
 
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')
