@@ -2,7 +2,7 @@
   <div class="layout-padding">
     <gmap-map
     :center="center"
-    :zoom="7"
+    :zoom="16"
     :options="{disableDefaultUI:true, zoomControl: true}"
   >
       <gmap-marker
@@ -14,22 +14,26 @@
         @click="center=m"
         icon="http://www.dndzgz.com/cache/markers/marker-bus.png"
       ></gmap-marker>
-      <gmap-polyline :path="markers">
-      </gmap-polyline>
+
+      <!--gmap-polyline :path="markers">
+      </gmap-polyline-->
     </gmap-map>
   </div>
 </template>
 
 <script>
+import { backendApiClient } from '@/core/backend-api-client'
+import { retrieveAllBusStops } from '@/core/commands'
+
 export default {
   data () {
     return {
-      center: {lat: 10.0, lng: 10.0},
-      markers: [
-        {lat: 10.0, lng: 10.0},
-        {lat: 11.0, lng: 11.0}
-      ]
+      center: {lat: 41.641184, lng: -0.894032},
+      markers: null
     }
+  },
+  async created () {
+    this.markers = await retrieveAllBusStops(backendApiClient)
   }
 }
 </script>
@@ -39,7 +43,7 @@ export default {
   position: relative;
 }
 .vue-map{
-    height: 0;
+    height: 600px;
     overflow: hidden;
     width: 100%;
     padding-bottom: 22.25%;
