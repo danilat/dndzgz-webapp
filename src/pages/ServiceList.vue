@@ -5,7 +5,7 @@
       <q-item>
         <q-item-side avatar="http://www.dndzgz.com/cache/markers/marker-bus.png"/>
         <q-item-main>
-          <q-item-tile label>Autobuses</q-item-tile>
+          <q-item-tile label @click="goToBusMap()">Autobuses</q-item-tile>
         </q-item-main>
         <q-item-side right>
           <q-item-tile icon="arrow_forward" color="faded" />
@@ -29,6 +29,11 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    goToBusMap () {
+      this.$router.push('/map')
+    }
   }
 }
 </script>
