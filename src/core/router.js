@@ -2,6 +2,8 @@ export const DndZgzRouter = (router) => {
   return { navigateToMap }
 
   function navigateToMap () {
-    router.push('map')
+    router.push(MAP_PATH)
   }
 }
+
+export const MAP_PATH = 'map'
