@@ -87,6 +87,7 @@
     ],
     "moduleNameMapper": {
       "quasar": "quasar-framework/dist/quasar.esm.js"
-    }
+    },
+    "setupTestFrameworkScriptFile": "<rootDir>/tests/helpers.js"
   }
 }

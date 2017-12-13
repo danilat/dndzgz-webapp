@@ -1,8 +1,6 @@
 
 import { mount } from 'vue-test-utils'
 import ServiceList from '@/pages/ServiceList'
-import Vue from 'vue'
-Vue.prototype.$q = {theme: 'mat'}
 
 describe('ServiceList', () => {
   let wrapper
