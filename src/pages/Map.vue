@@ -42,9 +42,7 @@ export default {
     }
   },
   async created () {
-    console.log('esperando cargados')
     this.markers = await retrieveAllBusStops()
-    console.log('markers cargados', this.markers.length)
     this.center = this.currentPosition = await userCurrentPosition()
   }
 }
