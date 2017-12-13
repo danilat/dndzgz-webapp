@@ -13,6 +13,6 @@ export const allBusStops = (backendApiClient) => {
   })
 }
 
-export const retrieveBusStopEstimation = (backendApiClient, id) => {
-  return backendApiClient('bus', id)
+export const retrieveBusStopEstimation = (id, apiClient = backendApiClient) => {
+  return apiClient('bus', id)
 }
