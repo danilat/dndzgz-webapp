@@ -8,6 +8,7 @@
   >
       <gmap-marker
         :key="marker.id"
+        :id="'marker'+marker.id"
         v-for="(marker, index) in markers"
         :position="marker"
         :clickable="true"
@@ -16,8 +17,11 @@
         icon="http://www.dndzgz.com/cache/markers/marker-bus.png"
       ></gmap-marker>
 
-      <gmap-info-window :position="infoWindow.position" :opened="infoWindow.opened" @closeclick="closeInfoWindow()" :options="infoWindow.options">
-        {{infoWindow.content}}
+      <gmap-info-window id="infoWindow" :position="infoWindow.position" :opened="infoWindow.opened" @closeclick="closeInfoWindow()" :options="infoWindow.options">
+        <q-btn>
+          {{infoWindow.content}}
+          <q-icon name="arrow_forward" />
+        </q-btn>
       </gmap-info-window>
 
       <gmap-marker
@@ -25,6 +29,7 @@
         :position="currentPosition"
         :clickable="true"
         @click="center=currentPosition"
+        icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
       ></gmap-marker>
 
       <!--gmap-polyline :path="markers">
@@ -37,14 +42,23 @@
 import { retrieveAllBusStops } from '../core/commands'
 import { userCurrentPosition } from '../core/geolocation'
 
+import {
+  QBtn,
+  QIcon
+} from 'quasar'
+
 export default {
+  components: {
+    QBtn,
+    QIcon
+  },
   data () {
     return {
       center: {lat: 41.641184, lng: -0.894032},
       currentPosition: null,
       markers: null,
       infoWindow: {
-        opened: true,
+        opened: false,
         options: {
           pixelOffset: {
             width: 0,
@@ -63,7 +77,7 @@ export default {
       const selected = this.markers[index]
       this.infoWindow.position = this.center = selected
       this.infoWindow.opened = true
-      this.infoWindow.content = selected.title
+      this.infoWindow.content = `${selected.title} (${selected.lines.join(', ')})`
     },
     closeInfoWindow () {
       this.infoWindow.opened = false
