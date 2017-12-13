@@ -1,10 +1,10 @@
 
 import { mount } from 'vue-test-utils'
 import Map from '@/pages/Map'
-import Vue from 'vue'
+import { retrieveAllBusStops } from '../../src/core/commands'
+jest.mock('@/core/geolocation')
 
 function resolveAll() {
-  console.log('resolveAll')
   return new Promise(resolve => setImmediate(resolve))
 }
 
@@ -14,11 +14,8 @@ describe('Map', () => {
     wrapper = mount(Map)
   })
   it('is mounted', async () => {
+    await retrieveAllBusStops()
     await resolveAll()
-    wrapper.update()
-    return Vue.nextTick()
-    .then(function () {
-      expect(wrapper.html()).toContain('mis cojones 33')
-    })
+    expect(wrapper.html()).toContain('CALLE CANTANDO BAJO LA LLUVIA')
   })
 })

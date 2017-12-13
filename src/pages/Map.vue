@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import { backendApiClient } from '../core/backend-api-client'
 import { retrieveAllBusStops } from '../core/commands'
 import { userCurrentPosition } from '../core/geolocation'
 
@@ -43,7 +42,9 @@ export default {
     }
   },
   async created () {
-    this.markers = await retrieveAllBusStops(backendApiClient)
+    console.log('esperando cargados')
+    this.markers = await retrieveAllBusStops()
+    console.log('markers cargados', this.markers.length)
     this.center = this.currentPosition = await userCurrentPosition()
   }
 }
