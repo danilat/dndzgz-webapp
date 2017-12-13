@@ -1,5 +1,6 @@
 <template>
   <div class="layout-padding">
+    currentPosition: {{ currentPosition }}
     <gmap-map
     :center="center"
     :zoom="16"
@@ -10,9 +11,15 @@
         v-for="(m, index) in markers"
         :position="m"
         :clickable="true"
-        :draggable="true"
         @click="center=m"
         icon="http://www.dndzgz.com/cache/markers/marker-bus.png"
+      ></gmap-marker>
+
+      <gmap-marker
+        v-if="currentPosition"
+        :position="currentPosition"
+        :clickable="true"
+        @click="center=currentPosition"
       ></gmap-marker>
 
       <!--gmap-polyline :path="markers">
@@ -24,16 +31,19 @@
 <script>
 import { backendApiClient } from '@/core/backend-api-client'
 import { retrieveAllBusStops } from '@/core/commands'
+import { userCurrentPosition } from '@/core/geolocation'
 
 export default {
   data () {
     return {
       center: {lat: 41.641184, lng: -0.894032},
+      currentPosition: null,
       markers: null
     }
   },
   async created () {
     this.markers = await retrieveAllBusStops(backendApiClient)
+    this.currentPosition = await userCurrentPosition()
   }
 }
 </script>
