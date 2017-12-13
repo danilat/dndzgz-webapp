@@ -3,7 +3,6 @@ export const userCurrentPosition = () => {
     if (isGeolocationAvailable()) {
       navigator.geolocation.getCurrentPosition((position) => {
         const latlng = {lat: position.coords.latitude, lng: position.coords.longitude}
-        console.log(latlng)
         resolve(latlng)
       }, () => { reject(new Error('No podemos obtener tu localización')) })
     }
