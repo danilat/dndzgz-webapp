@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {MAP_PATH} from '@/core/router'
+import {MAP_ROUTE} from '@/core/router'
 
 Vue.use(VueRouter)
 
@@ -26,8 +26,8 @@ export default new VueRouter({
   scrollBehavior: () => ({ y: 0 }),
 
   routes: [
-    { path: '/', component: load('ServiceList') },
-    { path: `/${MAP_PATH}`, component: load('Map') },
+    { name: 'servicesList', path: '/', component: load('ServiceList') },
+    { name: MAP_ROUTE, path: '/map', component: load('Map') },
 
     // Always leave this last one
     { path: '*', component: load('Error404') } // Not found

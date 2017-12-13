@@ -2,7 +2,7 @@ export const DndZgzRouter = (router) => {
   return { navigateToMap, navigateToBusDetail }
 
   function navigateToMap () {
-    router.push(MAP_PATH)
+    router.push({ name: MAP_ROUTE })
   }
 
   function navigateToBusDetail (id) {
@@ -10,4 +10,4 @@ export const DndZgzRouter = (router) => {
   }
 }
 
-export const MAP_PATH = 'map'
+export const MAP_ROUTE = 'map'
