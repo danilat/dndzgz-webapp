@@ -7,16 +7,17 @@
     :options="{disableDefaultUI:true, zoomControl: true}"
   >
       <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m"
+        :key="marker.id"
+        v-for="marker in markers"
+        :position="marker"
         :clickable="true"
-        @click="center=m"
+        :title="marker.title"
+        @click="center=marker"
         icon="http://www.dndzgz.com/cache/markers/marker-bus.png"
       ></gmap-marker>
 
       <gmap-marker
-        v-if="currentPosition"
+        v-show="currentPosition"
         :position="currentPosition"
         :clickable="true"
         @click="center=currentPosition"
@@ -29,9 +30,9 @@
 </template>
 
 <script>
-import { backendApiClient } from '@/core/backend-api-client'
-import { retrieveAllBusStops } from '@/core/commands'
-import { userCurrentPosition } from '@/core/geolocation'
+import { backendApiClient } from '../core/backend-api-client'
+import { retrieveAllBusStops } from '../core/commands'
+import { userCurrentPosition } from '../core/geolocation'
 
 export default {
   data () {
