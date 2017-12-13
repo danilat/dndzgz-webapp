@@ -15,9 +15,9 @@ describe('Retrieve All Bus Stops', () => {
       return Promise.resolve(stubbedStops)
     }
 
-    retrieveAllBusStops(backendApiClientDouble).then((stops) => {
+    return retrieveAllBusStops(backendApiClientDouble).then((stops) => {
       expect(stops.length).toEqual(1)
-      expect(stops[0].lng).toEqual(locations[0].lon)
+      expect(stops[0].lng).toEqual(stops[0].lon)
     })
   })
 })
