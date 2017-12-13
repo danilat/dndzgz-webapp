@@ -17,8 +17,8 @@
         icon="http://www.dndzgz.com/cache/markers/marker-bus.png"
       ></gmap-marker>
 
-      <gmap-info-window id="infoWindow" :position="infoWindow.position" :opened="infoWindow.opened" @closeclick="closeInfoWindow()" :options="infoWindow.options">
-        <q-btn>
+      <gmap-info-window id="infoWindow" :position="infoWindow.marker" :opened="infoWindow.opened" @closeclick="closeInfoWindow()" :options="infoWindow.options">
+        <q-btn id="goToDetailButton" @click="goToDetail(infoWindow.marker.id)">
           {{infoWindow.content}}
           <q-icon name="arrow_forward" />
         </q-btn>
@@ -41,6 +41,7 @@
 <script>
 import { retrieveAllBusStops } from '../core/commands'
 import { userCurrentPosition } from '../core/geolocation'
+import {DndZgzRouter} from '../core/router'
 
 import {
   QBtn,
@@ -69,18 +70,22 @@ export default {
     }
   },
   async created () {
+    this.dndzgzRouter = new DndZgzRouter(this.$router)
     this.markers = await retrieveAllBusStops()
     this.center = this.currentPosition = await userCurrentPosition()
   },
   methods: {
     showMarkerInfo (index) {
       const selected = this.markers[index]
-      this.infoWindow.position = this.center = selected
+      this.infoWindow.marker = this.center = selected
       this.infoWindow.opened = true
       this.infoWindow.content = `${selected.title} (${selected.lines.join(', ')})`
     },
     closeInfoWindow () {
       this.infoWindow.opened = false
+    },
+    goToDetail (id) {
+      this.dndzgzRouter.navigateToBusDetail(id)
     }
   }
 }
