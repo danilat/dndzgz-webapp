@@ -6,8 +6,9 @@ export const DndZgzRouter = (router) => {
   }
 
   function navigateToBusDetail (id) {
-
+    router.push({ name: BUS_DETAIL_ROUTE, params: {busId: id} })
   }
 }
 
 export const MAP_ROUTE = 'map'
+export const BUS_DETAIL_ROUTE = 'bus'
