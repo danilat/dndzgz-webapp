@@ -4,10 +4,6 @@ import Map from '@/pages/Map'
 import { retrieveAllBusStops } from '../../src/core/commands'
 jest.mock('@/core/geolocation')
 
-function resolveAll() {
-  return new Promise(resolve => setImmediate(resolve))
-}
-
 describe('Map', () => {
   let wrapper
   let markers
