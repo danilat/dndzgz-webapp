@@ -9,7 +9,15 @@ describe('ServiceList', () => {
   beforeEach(() => {
     wrapper = mount(ServiceList)
   })
-  it('has bus option', async () => {
+  it('has bus option', () => {
     expect(wrapper.text()).toContain('Autobuses')
+  })
+  it('click on bus navigates to the map', async () => {
+    const navigateToMapSpy = jest.fn()
+    wrapper.vm.dndzgzRouter = {navigateToMap: navigateToMapSpy}
+
+    const busItem = wrapper.find('#busOption')
+    busItem.trigger('click')
+    expect(navigateToMapSpy).toHaveBeenCalled()
   })
 })
