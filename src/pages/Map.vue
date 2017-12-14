@@ -1,6 +1,14 @@
 <template>
   <div class="layout-padding">
-    currentPosition: {{ currentPosition }}
+    <q-toolbar color="primary">
+      <q-btn flat>
+        <q-icon name="arrow_back" />
+      </q-btn>
+      <q-toolbar-title>
+        Bus
+      </q-toolbar-title>
+    </q-toolbar>
+
     <gmap-map
     :center="center"
     :zoom="16"
@@ -44,12 +52,16 @@ import { userCurrentPosition } from '../core/geolocation'
 import {DndZgzRouter} from '../core/router'
 
 import {
+  QToolbar,
+  QToolbarTitle,
   QBtn,
   QIcon
 } from 'quasar'
 
 export default {
   components: {
+    QToolbar,
+    QToolbarTitle,
     QBtn,
     QIcon
   },
