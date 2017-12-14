@@ -32,4 +32,13 @@ describe('Map', () => {
 
     expect(navigationSpy).toHaveBeenCalledWith(firstMarker.id)
   })
+
+  it('click on back goes to service list', () => {
+    const navigationSpy = jest.fn()
+    wrapper.vm.dndzgzRouter = {navigateToServiceList: navigationSpy}
+
+    wrapper.find('#back').trigger('click')
+
+    expect(navigationSpy).toHaveBeenCalled()
+  })
 })

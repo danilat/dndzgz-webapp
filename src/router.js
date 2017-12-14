@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {MAP_ROUTE, BUS_DETAIL_ROUTE} from '@/core/router'
+import {MAP_ROUTE, BUS_DETAIL_ROUTE, SERVICE_LIST_ROUTE} from '@/core/router'
 
 Vue.use(VueRouter)
 
@@ -26,7 +26,7 @@ export default new VueRouter({
   scrollBehavior: () => ({ y: 0 }),
 
   routes: [
-    { name: 'servicesList', path: '/', component: load('ServiceList') },
+    { name: SERVICE_LIST_ROUTE, path: '/', component: load('ServiceList') },
     { name: MAP_ROUTE, path: '/map', component: load('Map') },
     { name: BUS_DETAIL_ROUTE, path: '/bus/:busId', component: load('BusEstimations') },
 

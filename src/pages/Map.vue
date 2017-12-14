@@ -1,7 +1,7 @@
 <template>
   <div class="layout-padding">
     <q-toolbar color="primary">
-      <q-btn flat>
+      <q-btn flat id="back" @click="goBack()">
         <q-icon name="arrow_back" />
       </q-btn>
       <q-toolbar-title>
@@ -98,6 +98,9 @@ export default {
     },
     goToDetail (id) {
       this.dndzgzRouter.navigateToBusDetail(id)
+    },
+    goBack () {
+      this.dndzgzRouter.navigateToServiceList()
     }
   }
 }
