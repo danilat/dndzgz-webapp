@@ -20,8 +20,8 @@ Vue.use(Quasar) // Install Quasar Framework
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: '',
-    v: ''
+    key: 'AIzaSyAFUqoApRXiQvwHaDW5uRx6tRN9AKQhQVk',
+    v: '3'
   }
 })
 
