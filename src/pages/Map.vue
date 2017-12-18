@@ -22,7 +22,7 @@
         :clickable="true"
         :title="marker.title"
         @click="showMarkerInfo(index)"
-        icon="http://www.dndzgz.com/cache/markers/marker-bus.png"
+        icon="statics/marker-bus.png"
       ></gmap-marker>
 
       <gmap-info-window id="infoWindow" :position="infoWindow.marker" :opened="infoWindow.opened" @closeclick="closeInfoWindow()" :options="infoWindow.options">

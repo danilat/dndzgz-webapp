@@ -8,7 +8,7 @@
 
     <q-list highlight>
       <q-item @click="goToBusMap()" id="busOption">
-        <q-item-side avatar="http://www.dndzgz.com/cache/markers/marker-bus.png"/>
+        <q-item-side avatar="statics/marker-bus.png"/>
         <q-item-main>
           <q-item-tile label>Autobuses</q-item-tile>
         </q-item-main>
