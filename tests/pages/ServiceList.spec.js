@@ -1,6 +1,7 @@
 
 import { mount } from 'vue-test-utils'
 import ServiceList from '@/pages/ServiceList'
+jest.mock('@/core/geolocation')
 
 describe('ServiceList', () => {
   let wrapper
@@ -17,5 +18,8 @@ describe('ServiceList', () => {
     const busItem = wrapper.find('#busOption')
     busItem.trigger('click')
     expect(navigateToMapSpy).toHaveBeenCalled()
+  })
+  it('gets the user current position', async () => {
+    expect(wrapper.vm.currentPosition).not.toBeNull()
   })
 })
