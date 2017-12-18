@@ -31,7 +31,9 @@ import {
   QItemMain,
   QItemTile
 } from 'quasar'
+
 import {DndZgzRouter} from '../core/router'
+import { userCurrentPosition } from '../core/geolocation'
 
 export default {
   components: {
@@ -47,8 +49,9 @@ export default {
   data () {
     return {}
   },
-  created () {
+  async created () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
+    this.currentPosition = await userCurrentPosition()
   },
   methods: {
     goToBusMap () {
