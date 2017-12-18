@@ -1,6 +1,5 @@
 <template>
-  <!-- if you want automatic padding use "layout-padding" class -->
-  <div class="layout-padding">
+  <div>
     <q-toolbar color="primary">
       <q-toolbar-title>
         DNDzgz

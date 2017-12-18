@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-padding">
+  <div>
     <q-toolbar color="primary">
       <q-btn flat id="back" @click="goBack()">
         <q-icon name="arrow_back" />
