@@ -1,8 +1,13 @@
+let latlng
 export const userCurrentPosition = () => {
   return new Promise((resolve, reject) => {
+    if (latlng) {
+      resolve(latlng)
+      return
+    }
     if (isGeolocationAvailable()) {
       navigator.geolocation.getCurrentPosition((position) => {
-        const latlng = {lat: position.coords.latitude, lng: position.coords.longitude}
+        latlng = {lat: position.coords.latitude, lng: position.coords.longitude}
         resolve(latlng)
       }, () => { reject(new Error('No podemos obtener tu localización')) })
     }
