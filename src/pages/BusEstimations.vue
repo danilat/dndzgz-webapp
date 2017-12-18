@@ -14,7 +14,7 @@
     <q-list highlight>
       <q-list-header>Próximos autobuses</q-list-header>
 
-      <q-item v-for="estimation in estimations.estimates">
+      <q-item v-for="(estimation, index) in estimations.estimates" :key="index">
         <q-item-main>
           <q-item-tile label>{{estimation.line}} {{estimation.direction}}
             {{estimation.estimate}} minutos</q-item-tile>
