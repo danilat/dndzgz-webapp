@@ -7,8 +7,8 @@
       <q-toolbar-title>
         Parada {{ stationId }}
       </q-toolbar-title>
-      <q-btn flat>
-        <!--q-icon name="cached" /-->
+      <q-btn flat @click="updateEstimations()">
+        <q-icon name="cached"/>
       </q-btn>
     </q-toolbar>
 
@@ -81,6 +81,13 @@ export default {
   methods: {
     goBack () {
       this.dndzgzRouter.navigateToBiziMap()
+    },
+    async updateEstimations () {
+      this.bikes = null
+      this.parkings = null
+      const estimations = await retrieveBiziStationEstimation(this.stationId)
+      this.bikes = estimations.bikes
+      this.parkings = estimations.parkings
     }
   }
 }
