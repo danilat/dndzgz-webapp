@@ -81,10 +81,12 @@ export default {
       }
     }
   },
-  async created () {
+  async beforeCreate () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
-    this.markers = await retrieveAllBusStops()
     this.center = this.currentPosition = await userCurrentPosition()
+  },
+  async created () {
+    this.markers = await retrieveAllBusStops()
   },
   methods: {
     showMarkerInfo (index) {
