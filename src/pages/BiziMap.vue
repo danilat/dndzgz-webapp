@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-toolbar color="primary">
-      <q-btn flat id="back" >
+      <q-btn flat id="back" @click="goBack()">
         <q-icon name="arrow_back" />
       </q-btn>
       <q-toolbar-title>
@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import {DndZgzRouter} from '../core/router'
+
 import {
   QToolbar,
   QToolbarTitle,
@@ -28,6 +30,14 @@ export default {
   },
   data () {
     return {}
+  },
+  async beforeCreate () {
+    this.dndzgzRouter = new DndZgzRouter(this.$router)
+  },
+  methods: {
+    goBack () {
+      this.dndzgzRouter.navigateToServiceList()
+    }
   }
 }
 </script>
