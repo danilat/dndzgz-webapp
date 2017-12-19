@@ -21,3 +21,7 @@ export const retrieveAllBiziStations = (apiClient = backendApiClient) => {
 export const retrieveBusStopEstimation = (id, apiClient = backendApiClient) => {
   return apiClient('bus', id)
 }
+
+export const retrieveBiziStationEstimation = (id, apiClient = backendApiClient) => {
+  return apiClient('bizi', id)
+}
