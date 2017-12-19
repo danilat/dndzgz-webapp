@@ -49,5 +49,18 @@ describe('MapWithMarkers', () => {
     })
   })
 
+  describe('when a infowindow with button is clicked', () => {
+    let actionSpy
+    beforeEach(() =>{
+      actionSpy = jest.fn()
+      wrapper.vm.infoWindowAction = actionSpy
+      wrapper.find('#marker'+aMarker.id).trigger('click')
+    })
 
+    it('infoWindowAction is called' , () => {
+      wrapper.find('#infoWindow').find('button').trigger('click')
+
+      expect(actionSpy).toHaveBeenCalledWith(aMarker)
+    })
+  })
 })

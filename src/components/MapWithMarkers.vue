@@ -15,7 +15,13 @@
     </gmap-marker>
 
     <gmap-info-window id="infoWindow" :position="infoWindow.marker" :opened="infoWindow.opened" @closeclick="closeInfoWindow()" :options="infoWindow.options">
-      {{ infoWindow.content }}
+      <q-btn v-if="infoWindowAction" id="goToInfoWindowAction" @click="goToInfoWindowAction(infoWindow.marker)">
+        {{infoWindow.content}}
+        <q-icon name="arrow_forward" />
+      </q-btn>
+      <div v-else>
+        {{ infoWindow.content }}
+      </div>
     </gmap-info-window>
 
   </gmap-map>
@@ -24,8 +30,17 @@
 <script>
 import { userCurrentPosition } from '../core/geolocation'
 
+import {
+  QBtn,
+  QIcon
+} from 'quasar'
+
 export default {
   name: 'MapWithMarkers',
+  components: {
+    QBtn,
+    QIcon
+  },
   data () {
     return {
       center: {lat: 41.641184, lng: -0.894032},
@@ -52,6 +67,9 @@ export default {
     infoWindowContentFormatter: {
       type: Function,
       required: true
+    },
+    infoWindowAction: {
+      type: Function
     }
   },
   async created () {
@@ -66,6 +84,9 @@ export default {
     },
     closeInfoWindow () {
       this.infoWindow.opened = false
+    },
+    goToInfoWindowAction (marker) {
+      this.infoWindowAction(marker)
     }
   }
 }
