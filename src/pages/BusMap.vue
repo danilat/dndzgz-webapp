@@ -15,16 +15,6 @@
       :infoWindowContentFormatter="infoWindowContentFormatter"
       :infoWindowAction="goToDetail">
     </map-with-markers>
-
-    <!--gmap-marker
-        v-show="currentPosition"
-        :position="currentPosition"
-        :clickable="true"
-        @click="center=currentPosition"
-        icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-      ></gmap-marker-->
-    <!--gmap-polyline :path="markers">
-    </gmap-polyline-->
   </div>
 </template>
 

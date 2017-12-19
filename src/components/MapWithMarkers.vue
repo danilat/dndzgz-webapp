@@ -24,6 +24,18 @@
       </div>
     </gmap-info-window>
 
+    <gmap-marker
+        v-show="currentPosition"
+        :position="currentPosition"
+        :clickable="true"
+        @click="center=currentPosition"
+        title="Tu posición"
+        icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+      ></gmap-marker>
+
+    <gmap-polyline v-if="path" :path="path">
+    </gmap-polyline>
+
   </gmap-map>
 </template>
 
@@ -70,6 +82,9 @@ export default {
     },
     infoWindowAction: {
       type: Function
+    },
+    path: {
+      type: Array
     }
   },
   async created () {

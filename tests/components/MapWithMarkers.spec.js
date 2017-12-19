@@ -25,6 +25,8 @@ describe('MapWithMarkers', () => {
 
   it('gets the user current position', () => {
     expect(wrapper.vm.currentPosition).toBeTruthy()
+
+    expect(wrapper.html()).toContain('Tu posición')
   })
 
   describe('render the markers', () => {
