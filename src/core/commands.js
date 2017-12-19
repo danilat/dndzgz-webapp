@@ -11,7 +11,7 @@ export const retrieveAllBiziStations = async (apiClient = backendApiClient) => {
 }
 
 export const retrieveAllTaxiStops = async (apiClient = backendApiClient) => {
-  const response = await apiClient('taxi')
+  const response = await apiClient('taxis')
   return responseWithLocationsMapper(response)
 }
 
