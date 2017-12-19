@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import { DndZgzRouter } from '../core/router'
+
 import MapWithMarkers from '../components/MapWithMarkers'
 
 import {
@@ -31,6 +33,14 @@ export default {
   },
   data () {
     return {}
+  },
+  async beforeCreate () {
+    this.dndzgzRouter = new DndZgzRouter(this.$router)
+  },
+  methods: {
+    goBack () {
+      this.dndzgzRouter.navigateToServiceList()
+    }
   }
 }
 </script>
