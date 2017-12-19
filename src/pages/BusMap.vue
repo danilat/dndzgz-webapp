@@ -9,40 +9,22 @@
       </q-toolbar-title>
     </q-toolbar>
 
-    <gmap-map
-    :center="center"
-    :zoom="16"
-    :options="{disableDefaultUI:true, zoomControl: true}"
-  >
-      <gmap-marker
-        :key="marker.id"
-        :id="'marker'+marker.id"
-        v-for="(marker, index) in markers"
-        :position="marker"
-        :clickable="true"
-        :title="marker.title"
-        @click="showMarkerInfo(index)"
-        icon="statics/marker-bus.png"
-      ></gmap-marker>
+    <map-with-markers
+      icon="statics/marker-bus.png"
+      :markers="markers"
+      :infoWindowContentFormatter="infoWindowContentFormatter"
+      :infoWindowAction="goToDetail">
+    </map-with-markers>
 
-      <gmap-info-window id="infoWindow" :position="infoWindow.marker" :opened="infoWindow.opened" @closeclick="closeInfoWindow()" :options="infoWindow.options">
-        <q-btn id="goToDetailButton" @click="goToDetail(infoWindow.marker.id)">
-          {{infoWindow.content}}
-          <q-icon name="arrow_forward" />
-        </q-btn>
-      </gmap-info-window>
-
-      <gmap-marker
+    <!--gmap-marker
         v-show="currentPosition"
         :position="currentPosition"
         :clickable="true"
         @click="center=currentPosition"
         icon="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-      ></gmap-marker>
-
-      <!--gmap-polyline :path="markers">
-      </gmap-polyline-->
-    </gmap-map>
+      ></gmap-marker-->
+    <!--gmap-polyline :path="markers">
+    </gmap-polyline-->
   </div>
 </template>
 
@@ -50,6 +32,8 @@
 import { retrieveAllBusStops } from '../core/commands'
 import { userCurrentPosition } from '../core/geolocation'
 import {DndZgzRouter} from '../core/router'
+
+import MapWithMarkers from '../components/MapWithMarkers'
 
 import {
   QToolbar,
@@ -63,7 +47,8 @@ export default {
     QToolbar,
     QToolbarTitle,
     QBtn,
-    QIcon
+    QIcon,
+    MapWithMarkers
   },
   data () {
     return {
@@ -89,17 +74,11 @@ export default {
     this.markers = await retrieveAllBusStops()
   },
   methods: {
-    showMarkerInfo (index) {
-      const selected = this.markers[index]
-      this.infoWindow.marker = this.center = selected
-      this.infoWindow.opened = true
-      this.infoWindow.content = `${selected.title} (${selected.lines.join(', ')})`
+    infoWindowContentFormatter (selected) {
+      return `${selected.title} (${selected.lines.join(', ')})`
     },
-    closeInfoWindow () {
-      this.infoWindow.opened = false
-    },
-    goToDetail (id) {
-      this.dndzgzRouter.navigateToBusDetail(id)
+    goToDetail (marker) {
+      this.dndzgzRouter.navigateToBusDetail(marker.id)
     },
     goBack () {
       this.dndzgzRouter.navigateToServiceList()
