@@ -1,5 +1,18 @@
 <template>
-  <div></div>
+  <gmap-map
+  :center="center"
+  :zoom="16"
+  :options="{disableDefaultUI:true, zoomControl: true}">
+    <gmap-marker
+      :key="marker.id"
+      :id="'marker'+marker.id"
+      v-for="(marker, index) in markers"
+      :position="marker"
+      :clickable="true"
+      :title="marker.title"
+      :icon="icon">
+    </gmap-marker>
+  </gmap-map>
 </template>
 
 <script>
@@ -7,10 +20,20 @@ import { userCurrentPosition } from '../core/geolocation'
 
 export default {
   data () {
-    return {}
+    return {center: {lat: 41.641184, lng: -0.894032}}
+  },
+  props: {
+    markers: {
+      type: Array,
+      required: true
+    },
+    icon: {
+      type: String,
+      required: true
+    }
   },
   async created () {
-    this.currentPosition = await userCurrentPosition()
+    this.center = this.currentPosition = await userCurrentPosition()
   }
 }
 </script>
