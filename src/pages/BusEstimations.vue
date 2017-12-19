@@ -7,7 +7,7 @@
       <q-toolbar-title>
         Poste {{busStop}}
       </q-toolbar-title>
-      <q-btn flat>
+      <q-btn flat id="update" @click="updateEstimations()">
         <q-icon name="cached" />
       </q-btn>
     </q-toolbar>
@@ -65,11 +65,15 @@ export default {
     this.busStop = this.dndzgzRouter.getParam('busId')
   },
   async created () {
-    this.estimations = await retrieveBusStopEstimation(this.dndzgzRouter.getParam('busId'))
+    this.estimations = await retrieveBusStopEstimation(this.busStop)
   },
   methods: {
     goBack () {
       this.dndzgzRouter.navigateToMap()
+    },
+    async updateEstimations () {
+      this.estimations = []
+      this.estimations = await retrieveBusStopEstimation(this.busStop)
     }
   }
 }
