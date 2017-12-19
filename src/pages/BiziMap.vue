@@ -8,12 +8,15 @@
         Bizi
       </q-toolbar-title>
     </q-toolbar>
+    <map-with-markers icon="statics/marker-bizi.png" :markers="stations"></map-with-markers>
   </div>
 </template>
 
 <script>
 import {DndZgzRouter} from '../core/router'
+import { retrieveAllBiziStations } from '../core/commands'
 
+import MapWithMarkers from '../components/MapWithMarkers'
 import {
   QToolbar,
   QToolbarTitle,
@@ -26,13 +29,15 @@ export default {
     QToolbar,
     QToolbarTitle,
     QBtn,
-    QIcon
+    QIcon,
+    MapWithMarkers
   },
   data () {
-    return {}
+    return {stations: []}
   },
   async beforeCreate () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
+    this.stations = await retrieveAllBiziStations()
   },
   methods: {
     goBack () {
