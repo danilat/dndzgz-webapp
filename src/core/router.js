@@ -1,5 +1,13 @@
 export const DndZgzRouter = (router) => {
-  return { navigateToMap, navigateToBiziMap, navigateToBusDetail, navigateToBiziDetail, navigateToServiceList, getParam }
+  return {
+    navigateToMap,
+    navigateToBiziMap,
+    navigateToTaxiMap,
+    navigateToBusDetail,
+    navigateToBiziDetail,
+    navigateToServiceList,
+    getParam
+  }
 
   function navigateToMap () {
     router.push({ name: BUS_MAP_ROUTE })
@@ -7,6 +15,10 @@ export const DndZgzRouter = (router) => {
 
   function navigateToBiziMap () {
     router.push({ name: BIZI_MAP_ROUTE })
+  }
+
+  function navigateToTaxiMap () {
+
   }
 
   function navigateToBusDetail (id) {

@@ -14,9 +14,10 @@ describe('ServiceList', () => {
   it('click on bus navigates to the map', async () => {
     const navigateToMapSpy = jest.fn()
     wrapper.vm.dndzgzRouter = {navigateToMap: navigateToMapSpy}
-
     const busItem = wrapper.find('#busOption')
+    
     busItem.trigger('click')
+
     expect(navigateToMapSpy).toHaveBeenCalled()
   })
   it('has bizi option', () => {
@@ -25,9 +26,22 @@ describe('ServiceList', () => {
   it('click on bizi navigates to the map', async () => {
     const navigateToMapSpy = jest.fn()
     wrapper.vm.dndzgzRouter = {navigateToBiziMap: navigateToMapSpy}
+    const biziItem = wrapper.find('#biziOption')
 
-    const busItem = wrapper.find('#biziOption')
-    busItem.trigger('click')
+    biziItem.trigger('click')
+
+    expect(navigateToMapSpy).toHaveBeenCalled()
+  })
+  it('has taxi option', () => {
+    expect(wrapper.text()).toContain('Taxi')
+  })
+  it('click on taxi navigates to the map', async () => {
+    const navigateToMapSpy = jest.fn()
+    wrapper.vm.dndzgzRouter = {navigateToTaxiMap: navigateToMapSpy}
+    const taxiItem = wrapper.find('#taxiOption')
+
+    taxiItem.trigger('click')
+
     expect(navigateToMapSpy).toHaveBeenCalled()
   })
   it('gets the user current position', async () => {
