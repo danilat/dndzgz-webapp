@@ -5,7 +5,7 @@ import { retrieveAllBiziStations } from '../../src/core/commands'
 
 describe('BiziMap', () => {
   let wrapper
-  let firstMarker
+  let firstStation
   beforeEach(async () => {
     wrapper = mount(BiziMap, {
       stubs: {
@@ -13,6 +13,7 @@ describe('BiziMap', () => {
       }
     })
     const stations = await retrieveAllBiziStations()
+    firstStation = stations[0]
   })
 
   it('has the bizi stations', () => {
@@ -26,5 +27,14 @@ describe('BiziMap', () => {
     wrapper.find('#back').trigger('click')
 
     expect(navigationSpy).toHaveBeenCalled()
+  })
+
+  it('navigates to bizi detail', () => {
+    const navigationSpy = jest.fn()
+    wrapper.vm.dndzgzRouter = {navigateToBiziDetail: navigationSpy}
+
+    wrapper.vm.goToDetail(firstStation)
+
+    expect(navigationSpy).toHaveBeenCalledWith(firstStation.id)
   })
 })
