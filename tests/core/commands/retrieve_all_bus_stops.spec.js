@@ -1,21 +1,9 @@
 import {retrieveAllBusStops} from '@/core/commands'
+import {fakeLocationsApiClient} from './fake-api-client'
 
 describe('Retrieve All Bus Stops', () => {
   it('get results', async () => {
-    const stubbedStops = {
-      locations: [{
-        id: 1,
-        title: 'foo',
-        subtitle: 'subtitle',
-        lat: "irrelevant latitude",
-        lon: "irrelevant longitude"
-      }]
-    }
-    const backendApiClientDouble = () =>{
-      return Promise.resolve(stubbedStops)
-    }
-
-    return retrieveAllBusStops(backendApiClientDouble).then((stops) => {
+    return retrieveAllBusStops(fakeLocationsApiClient).then((stops) => {
       expect(stops.length).toEqual(1)
       expect(stops[0].lng).toEqual(stops[0].lon)
     })
