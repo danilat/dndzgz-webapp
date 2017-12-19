@@ -1,5 +1,5 @@
-import {fakeEstimations} from './fake-estimations'
+import {fakeBusEstimations} from './fake-estimations'
 
 export const retrieveBusStopEstimation = (id) => {
-  return Promise.resolve(fakeEstimations)
+  return Promise.resolve(fakeBusEstimations)
 }

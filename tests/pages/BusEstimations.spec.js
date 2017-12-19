@@ -3,7 +3,7 @@ import { mount } from 'vue-test-utils'
 import BusEstimations from '@/pages/BusEstimations'
 jest.mock('@/core/router')
 jest.mock('@/core/commands')
-import {fakeEstimations} from '@/core/__mocks__/fake-estimations'
+import {fakeBusEstimations} from '@/core/__mocks__/fake-estimations'
 
 
 describe('BusEstimations', () => {
@@ -18,12 +18,12 @@ describe('BusEstimations', () => {
   })
 
   it('should have estimations', () => {
-    expect(estimations.length).toBe(fakeEstimations.estimates.length)
+    expect(estimations.length).toBe(fakeBusEstimations.estimates.length)
   })
 
   it('the estimations should have direction, line and time', () => {
     for (let index=0; index < estimations.length; index++) {
-      const fakeEstiation = fakeEstimations.estimates[index]
+      const fakeEstiation = fakeBusEstimations.estimates[index]
       const estimation = estimations.at(index)
       expect(estimation.text()).toContain(fakeEstiation.direction)
       expect(estimation.text()).toContain(fakeEstiation.estimate)
