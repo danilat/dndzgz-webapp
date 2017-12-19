@@ -16,6 +16,15 @@
           <q-item-tile icon="arrow_forward" color="faded" />
         </q-item-side>
       </q-item>
+      <q-item @click="goToBiziMap()" id="biziOption">
+        <q-item-side avatar="statics/marker-bizi.png"/>
+        <q-item-main>
+          <q-item-tile label>Bizi</q-item-tile>
+        </q-item-main>
+        <q-item-side right>
+          <q-item-tile icon="arrow_forward" color="faded" />
+        </q-item-side>
+      </q-item>
     </q-list>
   </div>
 </template>
@@ -56,6 +65,9 @@ export default {
   methods: {
     goToBusMap () {
       this.dndzgzRouter.navigateToMap()
+    },
+    goToBiziMap () {
+      this.dndzgzRouter.navigateToBiziMap()
     }
   }
 }

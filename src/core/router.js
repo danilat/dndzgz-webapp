@@ -1,8 +1,12 @@
 export const DndZgzRouter = (router) => {
-  return { navigateToMap, navigateToBusDetail, navigateToServiceList, getParam }
+  return { navigateToMap, navigateToBiziMap, navigateToBusDetail, navigateToServiceList, getParam }
 
   function navigateToMap () {
     router.push({ name: BUS_MAP_ROUTE })
+  }
+
+  function navigateToBiziMap () {
+    router.push({ name: BIZI_MAP_ROUTE })
   }
 
   function navigateToBusDetail (id) {
@@ -19,5 +23,6 @@ export const DndZgzRouter = (router) => {
 }
 
 export const BUS_MAP_ROUTE = 'bus_map'
+export const BIZI_MAP_ROUTE = 'bizi_map'
 export const BUS_DETAIL_ROUTE = 'bus'
 export const SERVICE_LIST_ROUTE = 'servicesList'

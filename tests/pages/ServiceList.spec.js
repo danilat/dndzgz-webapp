@@ -19,6 +19,17 @@ describe('ServiceList', () => {
     busItem.trigger('click')
     expect(navigateToMapSpy).toHaveBeenCalled()
   })
+  it('has bizi option', () => {
+    expect(wrapper.text()).toContain('Bizi')
+  })
+  it('click on bizi navigates to the map', async () => {
+    const navigateToMapSpy = jest.fn()
+    wrapper.vm.dndzgzRouter = {navigateToBiziMap: navigateToMapSpy}
+
+    const busItem = wrapper.find('#biziOption')
+    busItem.trigger('click')
+    expect(navigateToMapSpy).toHaveBeenCalled()
+  })
   it('gets the user current position', async () => {
     expect(wrapper.vm.currentPosition).not.toBeNull()
   })
