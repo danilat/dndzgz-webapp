@@ -3,7 +3,6 @@ import { backendApiClient } from './backend-api-client'
 export const retrieveAllBusStops = async (apiClient = backendApiClient) => {
   const response = await apiClient('bus')
   return responseWithLocationsMapper(response)
-
 }
 
 export const retrieveAllBiziStations = async (apiClient = backendApiClient) => {
