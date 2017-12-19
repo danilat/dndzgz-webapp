@@ -11,7 +11,7 @@
 
     <map-with-markers
       icon="statics/marker-bus.png"
-      :markers="markers"
+      :markers="stops"
       :infoWindowContentFormatter="infoWindowContentFormatter"
       :infoWindowAction="goToDetail">
     </map-with-markers>
@@ -42,18 +42,7 @@ export default {
   },
   data () {
     return {
-      center: {lat: 41.641184, lng: -0.894032},
-      currentPosition: null,
-      markers: null,
-      infoWindow: {
-        opened: false,
-        options: {
-          pixelOffset: {
-            width: 0,
-            height: -35
-          }
-        }
-      }
+      stops: []
     }
   },
   async beforeCreate () {
@@ -61,7 +50,7 @@ export default {
     this.center = this.currentPosition = await userCurrentPosition()
   },
   async created () {
-    this.markers = await retrieveAllBusStops()
+    this.stops = await retrieveAllBusStops()
   },
   methods: {
     infoWindowContentFormatter (selected) {
@@ -76,17 +65,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.vue-map-container{
-  position: relative;
-}
-.vue-map{
-    height: 600px;
-    overflow: hidden;
-    width: 100%;
-    padding-bottom: 22.25%;
-    padding-top: 30px;
-    position: relative;
-}
-</style>

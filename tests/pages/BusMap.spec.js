@@ -9,14 +9,14 @@ describe('BusMap', () => {
   let firstMarker
   beforeEach(async () => {
     wrapper = mount(BusMap)
-    const markers = await retrieveAllBusStops()
-    firstMarker = markers[0]
+    const stops = await retrieveAllBusStops()
+    firstMarker = stops[0]
   })
 
   it('has the bus stops', () => {
-    expect(wrapper.html()).toContain('GOYA')
+    expect(wrapper.vm.stops).toBeTruthy()
   })
-  
+
   it('click on back goes to service list', () => {
     const navigationSpy = jest.fn()
     wrapper.vm.dndzgzRouter = {navigateToServiceList: navigationSpy}
