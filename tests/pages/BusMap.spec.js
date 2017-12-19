@@ -1,14 +1,14 @@
 
 import { mount } from 'vue-test-utils'
-import Map from '@/pages/Map'
+import BusMap from '@/pages/BusMap'
 import { retrieveAllBusStops } from '../../src/core/commands'
 jest.mock('@/core/geolocation')
 
-describe('Map', () => {
+describe('BusMap', () => {
   let wrapper
   let firstMarker
   beforeEach(async () => {
-    wrapper = mount(Map)
+    wrapper = mount(BusMap)
     const markers = await retrieveAllBusStops()
     firstMarker = markers[0]
   })
