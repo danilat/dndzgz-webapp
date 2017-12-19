@@ -27,7 +27,7 @@ export default new VueRouter({
 
   routes: [
     { name: SERVICE_LIST_ROUTE, path: '/', component: load('ServiceList') },
-    { name: BUS_MAP_ROUTE, path: '/map', component: load('Map') },
+    { name: BUS_MAP_ROUTE, path: '/map', component: load('BusMap') },
     { name: BUS_DETAIL_ROUTE, path: '/bus/:busId', component: load('BusEstimations') },
 
     // Always leave this last one

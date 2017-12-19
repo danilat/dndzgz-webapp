@@ -6,7 +6,7 @@ module.exports = {
     quasar: path.resolve(__dirname, '../node_modules/quasar-framework/'),
     src: path.resolve(__dirname, '../src'),
     assets: path.resolve(__dirname, '../src/assets'),
-    '@': path.resolve(__dirname, '../src/'),
+    '@': path.resolve(__dirname, '../src'),
     variables: path.resolve(__dirname, '../src/themes/quasar.variables.styl')
   },
 
@@ -32,7 +32,7 @@ module.exports = {
     // auto open browser or not
     openBrowser: true,
     publicPath: '/',
-    port: 8080,
+    port: 8081,
 
     // If for example you are using Quasar Play
     // to generate a QR code then on each dev (re)compilation
