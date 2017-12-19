@@ -8,7 +8,7 @@
         Bizi
       </q-toolbar-title>
     </q-toolbar>
-    <map-with-markers icon="statics/marker-bizi.png" :markers="stations"></map-with-markers>
+    <map-with-markers icon="statics/marker-bizi.png" :markers="stations" :infoWindowContentFormatter="infoWindowContentFormatter"></map-with-markers>
   </div>
 </template>
 
@@ -42,6 +42,9 @@ export default {
   methods: {
     goBack () {
       this.dndzgzRouter.navigateToServiceList()
+    },
+    infoWindowContentFormatter (station) {
+      return station.title
     }
   }
 }
