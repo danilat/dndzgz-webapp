@@ -1,8 +1,8 @@
 import { mount } from 'vue-test-utils'
-import Map from '@/components/Map'
+import MapWithMarkers from '@/components/MapWithMarkers'
 jest.mock('@/core/geolocation')
 
-describe('Map', () => {
+describe('MapWithMarkers', () => {
   let wrapper
   const aMarker = {
     title: 'hi i am a marker title'
@@ -11,7 +11,7 @@ describe('Map', () => {
   const anIconName = 'an-irrelevant-icon.jpg'
 
   beforeEach(async () => {
-    wrapper = mount(Map, {
+    wrapper = mount(MapWithMarkers, {
       propsData: {markers: someMarkers, icon: anIconName}
     })
   })

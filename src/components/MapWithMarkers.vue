@@ -19,6 +19,7 @@
 import { userCurrentPosition } from '../core/geolocation'
 
 export default {
+  name: 'MapWithMarkers',
   data () {
     return {center: {lat: 41.641184, lng: -0.894032}}
   },
@@ -39,4 +40,15 @@ export default {
 </script>
 
 <style>
+.vue-map-container{
+  position: relative;
+}
+.vue-map{
+    height: 600px;
+    overflow: hidden;
+    width: 100%;
+    padding-bottom: 22.25%;
+    padding-top: 30px;
+    position: relative;
+}
 </style>
