@@ -5,7 +5,6 @@ import {BUS_MAP_ROUTE, BUS_DETAIL_ROUTE, SERVICE_LIST_ROUTE} from '@/core/router
 Vue.use(VueRouter)
 
 function load (component) {
-  // '@' is aliased to src/components
   return () => import(`@/pages/${component}.vue`)
 }
 
@@ -27,7 +26,7 @@ export default new VueRouter({
 
   routes: [
     { name: SERVICE_LIST_ROUTE, path: '/', component: load('ServiceList') },
-    { name: BUS_MAP_ROUTE, path: '/map', component: load('Map') },
+    { name: BUS_MAP_ROUTE, path: '/bus_map', component: load('BusMap') },
     { name: BUS_DETAIL_ROUTE, path: '/bus/:busId', component: load('BusEstimations') },
 
     // Always leave this last one
