@@ -8,11 +8,18 @@
         Taxis
       </q-toolbar-title>
     </q-toolbar>
+
+    <map-with-markers
+      icon="statics/marker-taxis.png"
+      :markers="stops"
+      :infoWindowContentFormatter="infoWindowContentFormatter">
+    </map-with-markers>
   </div>
 </template>
 
 <script>
 import { DndZgzRouter } from '../core/router'
+import { retrieveAllTaxiStops } from '../../src/core/commands'
 
 import MapWithMarkers from '../components/MapWithMarkers'
 
@@ -32,14 +39,18 @@ export default {
     MapWithMarkers
   },
   data () {
-    return {}
+    return {stops: []}
   },
   async beforeCreate () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
+    this.stops = await retrieveAllTaxiStops()
   },
   methods: {
     goBack () {
       this.dndzgzRouter.navigateToServiceList()
+    },
+    infoWindowContentFormatter (selected) {
+      return selected.title
     }
   }
 }

@@ -18,6 +18,15 @@ export const retrieveAllBiziStations = (apiClient = backendApiClient) => {
   })
 }
 
+export const retrieveAllTaxiStops = (apiClient = backendApiClient) => {
+  return apiClient('taxis').then((response) => {
+    return response.locations.map((location) => {
+      location.lng = location.lon
+      return location
+    })
+  })
+}
+
 export const retrieveBusStopEstimation = (id, apiClient = backendApiClient) => {
   return apiClient('bus', id)
 }
