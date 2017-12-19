@@ -1,29 +1,25 @@
 import { backendApiClient } from './backend-api-client'
 
-export const retrieveAllBusStops = (apiClient = backendApiClient) => {
-  return apiClient('bus').then((response) => {
-    return response.locations.map((location) => {
-      location.lng = location.lon
-      return location
-    })
-  })
+export const retrieveAllBusStops = async (apiClient = backendApiClient) => {
+  const response = await apiClient('bus')
+  return responseWithLocationsMapper(response)
+
 }
 
-export const retrieveAllBiziStations = (apiClient = backendApiClient) => {
-  return apiClient('bizi').then((response) => {
-    return response.locations.map((location) => {
-      location.lng = location.lon
-      return location
-    })
-  })
+export const retrieveAllBiziStations = async (apiClient = backendApiClient) => {
+  const response = await apiClient('bizi')
+  return responseWithLocationsMapper(response)
 }
 
-export const retrieveAllTaxiStops = (apiClient = backendApiClient) => {
-  return apiClient('taxis').then((response) => {
-    return response.locations.map((location) => {
-      location.lng = location.lon
-      return location
-    })
+export const retrieveAllTaxiStops = async (apiClient = backendApiClient) => {
+  const response = await apiClient('taxi')
+  return responseWithLocationsMapper(response)
+}
+
+const responseWithLocationsMapper = (response) => {
+  return response.locations.map((location) => {
+    location.lng = location.lon
+    return location
   })
 }
 
