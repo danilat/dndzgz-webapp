@@ -5,14 +5,21 @@ jest.mock('@/core/geolocation')
 describe('MapWithMarkers', () => {
   let wrapper
   const aMarker = {
+    id: 'an-id-for-mark',
     title: 'hi i am a marker title'
   }
   const someMarkers = [aMarker]
   const anIconName = 'an-irrelevant-icon.jpg'
+  const fakeFormatterForTest = (selected) => {return `a fake formatter ${selected}`}
 
   beforeEach(async () => {
+    const infoWindowContentFormatterStub = jest.fn(fakeFormatterForTest)
     wrapper = mount(MapWithMarkers, {
-      propsData: {markers: someMarkers, icon: anIconName}
+      propsData: {
+        markers: someMarkers,
+        icon: anIconName,
+        infoWindowContentFormatter: infoWindowContentFormatterStub
+      }
     })
   })
 
@@ -28,4 +35,19 @@ describe('MapWithMarkers', () => {
       expect(wrapper.html()).toContain(anIconName)
     })
   })
+
+  describe('when a marker is clicked the infowindow', () => {
+    it('is shown', async () => {
+      wrapper.find('#marker'+aMarker.id).trigger('click')
+
+      expect(wrapper.vm.infoWindow.opened).toBeTruthy()
+    })
+    it('content is populated with infoWindowContentFormatter', async () => {
+      wrapper.find('#marker'+aMarker.id).trigger('click')
+
+      expect(wrapper.vm.infoWindow.content).toBe(fakeFormatterForTest(aMarker))
+    })
+  })
+
+
 })
