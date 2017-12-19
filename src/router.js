@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {BUS_MAP_ROUTE, BIZI_MAP_ROUTE, BUS_DETAIL_ROUTE, BIZI_DETAIL_ROUTE, SERVICE_LIST_ROUTE} from '@/core/router'
+import {
+  BUS_MAP_ROUTE, BIZI_MAP_ROUTE, TAXIS_MAP_ROUTE,
+  BUS_DETAIL_ROUTE, BIZI_DETAIL_ROUTE, SERVICE_LIST_ROUTE
+} from '@/core/router'
 
 Vue.use(VueRouter)
 
@@ -30,6 +33,7 @@ export default new VueRouter({
     { name: BIZI_MAP_ROUTE, path: '/bizi_map', component: load('BiziMap') },
     { name: BUS_DETAIL_ROUTE, path: '/bus/:busId', component: load('BusEstimations') },
     { name: BIZI_DETAIL_ROUTE, path: '/bizi/:stationId', component: load('BiziEstimations') },
+    { name: TAXIS_MAP_ROUTE, path: '/taxis_map', component: load('TaxiMap') },
 
     // Always leave this last one
     { path: '*', component: load('Error404') } // Not found

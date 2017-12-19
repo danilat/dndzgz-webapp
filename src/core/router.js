@@ -18,7 +18,7 @@ export const DndZgzRouter = (router) => {
   }
 
   function navigateToTaxiMap () {
-
+    router.push({ name: TAXIS_MAP_ROUTE })
   }
 
   function navigateToBusDetail (id) {
@@ -40,6 +40,7 @@ export const DndZgzRouter = (router) => {
 
 export const BUS_MAP_ROUTE = 'bus_map'
 export const BIZI_MAP_ROUTE = 'bizi_map'
+export const TAXIS_MAP_ROUTE = 'taxis_map'
 export const BUS_DETAIL_ROUTE = 'bus'
 export const BIZI_DETAIL_ROUTE = 'bizi'
 export const SERVICE_LIST_ROUTE = 'servicesList'
