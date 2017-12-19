@@ -14,9 +14,9 @@
     <q-list highlight>
       <q-list-header>Próximos autobuses</q-list-header>
 
-      <q-item v-for="(estimation, index) in estimations.estimates" :key="index">
+      <q-item v-if="estimations" v-for="(estimation, index) in estimations.estimates" :key="index">
         <q-item-main>
-          <q-item-tile label>{{estimation.line}} {{estimation.direction}}
+          <q-item-tile label class="estimation">{{estimation.line}} {{estimation.direction}}
             {{estimation.estimate}} minutos</q-item-tile>
         </q-item-main>
         <q-item-side right>
@@ -58,16 +58,14 @@ export default {
     QItemTile
   },
   data () {
-    return {estimations: null}
+    return {estimations: []}
+  },
+  beforeCreate () {
+    this.dndzgzRouter = new DndZgzRouter(this.$router)
+    this.busStop = this.dndzgzRouter.getParam('busId')
   },
   async created () {
-    this.dndzgzRouter = new DndZgzRouter(this.$router)
     this.estimations = await retrieveBusStopEstimation(this.dndzgzRouter.getParam('busId'))
-  },
-  computed: {
-    busStop () {
-      return this.dndzgzRouter.getParam('busId')
-    }
   },
   methods: {
     goBack () {
