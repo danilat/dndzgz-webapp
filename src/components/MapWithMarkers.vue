@@ -56,6 +56,7 @@ export default {
   data () {
     return {
       center: {lat: 41.641184, lng: -0.894032},
+      currentPosition: null,
       infoWindow: {
         opened: false,
         options: {
