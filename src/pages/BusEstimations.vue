@@ -14,6 +14,15 @@
     <q-list highlight>
       <q-list-header>Próximos autobuses</q-list-header>
 
+      <q-item v-if="error">
+        <q-item-main>
+          <q-item-tile label>{{error}}</q-item-tile>
+        </q-item-main>
+        <q-item-side right>
+          <q-item-tile icon="error" />
+        </q-item-side>
+      </q-item>
+
       <q-item v-if="estimations" v-for="(estimation, index) in estimations.estimates" :key="index">
         <q-item-main>
           <q-item-tile label class="estimation">{{estimation.line}} {{estimation.direction}}
@@ -58,14 +67,14 @@ export default {
     QItemTile
   },
   data () {
-    return {estimations: []}
+    return {estimations: [], error: null}
   },
   beforeCreate () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
     this.busStop = this.dndzgzRouter.getParam('busId')
   },
   async created () {
-    this.estimations = await retrieveBusStopEstimation(this.busStop)
+    await this.updateEstimations()
   },
   methods: {
     goBack () {
@@ -73,7 +82,12 @@ export default {
     },
     async updateEstimations () {
       this.estimations = []
-      this.estimations = await retrieveBusStopEstimation(this.busStop)
+      try {
+        this.estimations = await retrieveBusStopEstimation(this.busStop)
+      }
+      catch (error) {
+        this.error = error.message
+      }
     }
   }
 }
