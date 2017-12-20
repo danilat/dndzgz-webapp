@@ -25,6 +25,15 @@
           <q-item-tile icon="arrow_forward" color="faded" />
         </q-item-side>
       </q-item>
+      <q-item @click="goToTramMap()" id="tramOption">
+        <q-item-side avatar="statics/marker-tram.png"/>
+        <q-item-main>
+          <q-item-tile label>Tranvía</q-item-tile>
+        </q-item-main>
+        <q-item-side right>
+          <q-item-tile icon="arrow_forward" color="faded" />
+        </q-item-side>
+      </q-item>
       <q-item @click="goToTaxiMap()" id="taxiOption">
         <q-item-side avatar="statics/marker-taxis.png"/>
         <q-item-main>
@@ -80,6 +89,9 @@ export default {
     },
     goToTaxiMap () {
       this.dndzgzRouter.navigateToTaxiMap()
+    },
+    goToTramMap () {
+      this.dndzgzRouter.navigateToTramMap()
     }
   }
 }

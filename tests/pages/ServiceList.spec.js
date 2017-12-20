@@ -15,7 +15,7 @@ describe('ServiceList', () => {
     const navigateToMapSpy = jest.fn()
     wrapper.vm.dndzgzRouter = {navigateToMap: navigateToMapSpy}
     const busItem = wrapper.find('#busOption')
-    
+
     busItem.trigger('click')
 
     expect(navigateToMapSpy).toHaveBeenCalled()
@@ -39,6 +39,18 @@ describe('ServiceList', () => {
     const navigateToMapSpy = jest.fn()
     wrapper.vm.dndzgzRouter = {navigateToTaxiMap: navigateToMapSpy}
     const taxiItem = wrapper.find('#taxiOption')
+
+    taxiItem.trigger('click')
+
+    expect(navigateToMapSpy).toHaveBeenCalled()
+  })
+  it('has tram option', () => {
+    expect(wrapper.text()).toContain('Tranvía')
+  })
+  it('click on tram navigates to the map', async () => {
+    const navigateToMapSpy = jest.fn()
+    wrapper.vm.dndzgzRouter = {navigateToTramMap: navigateToMapSpy}
+    const taxiItem = wrapper.find('#tramOption')
 
     taxiItem.trigger('click')
 
