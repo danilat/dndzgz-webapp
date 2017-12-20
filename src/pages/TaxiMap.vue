@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import { DndZgzRouter } from '../core/router'
 import { retrieveAllTaxiStops } from '../../src/core/commands'
 
 import MapWithMarkers from '../components/MapWithMarkers'
@@ -26,7 +25,6 @@ export default {
     return {stops: []}
   },
   async beforeCreate () {
-    this.dndzgzRouter = new DndZgzRouter(this.$router)
     this.stops = await retrieveAllTaxiStops()
   },
   methods: {
