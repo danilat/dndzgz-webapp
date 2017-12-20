@@ -21,13 +21,18 @@ export const retrieveBiziStationEstimation = (id, apiClient = backendApiClient) 
 }
 
 const cachedCollections = {}
-const retreiveUnlessIsCached = async (service, apiClient) => {
-  const isNotCached = !cachedCollections[service]
-  if (isNotCached) {
+export const retreiveUnlessIsCached = async (service, apiClient) => {
+  if (isNotCached(cachedCollections[service])) {
     const response = await apiClient(service)
     cachedCollections[service] = responseWithLocationsMapper(response)
   }
   return cachedCollections[service]
+}
+export const clearFromCache = async (service) => {
+  cachedCollections[service] = undefined
+}
+const isNotCached = (collection) => {
+  return (!collection || collection.length === 0)
 }
 
 const responseWithLocationsMapper = (response) => {
