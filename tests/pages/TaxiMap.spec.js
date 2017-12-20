@@ -16,13 +16,4 @@ describe('TaxiMap', () => {
   it('has the taxi stops', () => {
     expect(wrapper.vm.stops).toBeTruthy()
   })
-
-  it('click on back goes to service list', () => {
-    const navigationSpy = jest.fn()
-    wrapper.vm.dndzgzRouter = {navigateToServiceList: navigationSpy}
-
-    wrapper.find('#back').trigger('click')
-
-    expect(navigationSpy).toHaveBeenCalled()
-  })
 })

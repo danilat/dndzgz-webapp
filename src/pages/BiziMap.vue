@@ -1,13 +1,7 @@
 <template>
   <div>
-    <q-toolbar color="primary">
-      <q-btn flat id="back" @click="goBack()">
-        <q-icon name="arrow_back" />
-      </q-btn>
-      <q-toolbar-title>
-        Bizi
-      </q-toolbar-title>
-    </q-toolbar>
+    <map-header title="Bizi"/>
+
     <map-with-markers
       icon="statics/marker-bizi.png"
       :markers="stations"
@@ -22,19 +16,11 @@ import {DndZgzRouter} from '../core/router'
 import { retrieveAllBiziStations } from '../core/commands'
 
 import MapWithMarkers from '../components/MapWithMarkers'
-import {
-  QToolbar,
-  QToolbarTitle,
-  QBtn,
-  QIcon
-} from 'quasar'
+import MapHeader from '../components/MapHeader'
 
 export default {
   components: {
-    QToolbar,
-    QToolbarTitle,
-    QBtn,
-    QIcon,
+    MapHeader,
     MapWithMarkers
   },
   data () {
@@ -45,9 +31,6 @@ export default {
     this.stations = await retrieveAllBiziStations()
   },
   methods: {
-    goBack () {
-      this.dndzgzRouter.navigateToServiceList()
-    },
     goToDetail (marker) {
       this.dndzgzRouter.navigateToBiziDetail(marker.id)
     },
