@@ -12,6 +12,10 @@ export const retrieveAllTaxiStops = async (apiClient = backendApiClient) => {
   return retreiveUnlessIsCached('taxis', apiClient)
 }
 
+export const retrieveAllTramStops = (apiClient = backendApiClient) => {
+  return retreiveUnlessIsCached('tram', apiClient)
+}
+
 export const retrieveBusStopEstimation = (id, apiClient = backendApiClient) => {
   return apiClient('bus', id)
 }

@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import {retrieveAllTramStops} from '../../src/core/commands'
+
 import MapWithMarkers from '../components/MapWithMarkers'
 import MapHeader from '../components/MapHeader'
 
@@ -13,6 +15,9 @@ export default {
   },
   data () {
     return {stops: []}
+  },
+  async beforeCreate () {
+    this.stops = await retrieveAllTramStops()
   }
 }
 </script>
