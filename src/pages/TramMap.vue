@@ -1,5 +1,13 @@
 <template>
-  <map-header title="Tranvía"/>
+  <div>
+    <map-header title="Tranvía"/>
+
+    <map-with-markers
+      icon="statics/marker-tram.png"
+      :markers="stops"
+      :infoWindowContentFormatter="infoWindowContentFormatter">
+    </map-with-markers>
+  </div>
 </template>
 
 <script>
@@ -18,6 +26,11 @@ export default {
   },
   async beforeCreate () {
     this.stops = await retrieveAllTramStops()
+  },
+  methods: {
+    infoWindowContentFormatter (selected) {
+      return selected.title
+    }
   }
 }
 </script>
