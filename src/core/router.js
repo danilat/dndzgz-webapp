@@ -7,6 +7,7 @@ export const DndZgzRouter = (router) => {
     navigateToBusDetail,
     navigateToBiziDetail,
     navigateToServiceList,
+    navigateToTramDetail,
     getParam
   }
 
@@ -24,6 +25,10 @@ export const DndZgzRouter = (router) => {
 
   function navigateToTramMap () {
     router.push({ name: TRAM_MAP_ROUTE })
+  }
+
+  function navigateToTramDetail () {
+
   }
 
   function navigateToBusDetail (id) {
