@@ -1,18 +1,19 @@
 <template>
+  <q-pull-to-refresh :handler="refresher" pull-message="Tira para actualizar" release-message="Suelta para actualizar" refresh-message="Actualizando...">
   <div>
     <q-toolbar color="primary">
       <q-btn flat id="back" @click="goBack()">
         <q-icon name="arrow_back" />
       </q-btn>
       <q-toolbar-title>
-        Poste {{busStop}}
+        Parada {{tramStop}}
       </q-toolbar-title>
       <q-btn flat id="update" @click="updateEstimations()">
         <q-icon name="cached" />
       </q-btn>
     </q-toolbar>
     <q-list highlight>
-      <q-list-header>Próximos autobuses</q-list-header>
+      <q-list-header>Próximos tranvías</q-list-header>
 
       <q-item v-if="error">
         <q-item-main>
@@ -34,6 +35,7 @@
       </q-item>
     </q-list>
   </div>
+  </q-pull-to-refresh>
 </template>
 
 <script>
@@ -50,7 +52,8 @@ import {
   QItem,
   QItemSide,
   QItemMain,
-  QItemTile
+  QItemTile,
+  QPullToRefresh
 } from 'quasar'
 
 export default {
@@ -64,7 +67,8 @@ export default {
     QItem,
     QItemSide,
     QItemMain,
-    QItemTile
+    QItemTile,
+    QPullToRefresh
   },
   data () {
     return {estimations: [], error: null}
@@ -72,11 +76,26 @@ export default {
   async beforeCreate () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
     this.tramStop = this.dndzgzRouter.getParam('tramId')
-    this.estimations = await retrieveTramStopEstimation(this.tramStop)
+  },
+  async created () {
+    await this.updateEstimations()
   },
   methods: {
     goBack () {
       this.dndzgzRouter.navigateToTramMap()
+    },
+    async refresher (done) {
+      await this.updateEstimations()
+      done()
+    },
+    async updateEstimations () {
+      this.estimations = []
+      try {
+        this.estimations = await retrieveTramStopEstimation(this.tramStop)
+      }
+      catch (error) {
+        this.error = error.message
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 <template>
+  <q-pull-to-refresh :handler="refresher" pull-message="Tira para actualizar" release-message="Suelta para actualizar" refresh-message="Actualizando...">
   <div>
     <q-toolbar color="primary">
       <q-btn flat id="back" @click="goBack()">
@@ -34,6 +35,7 @@
       </q-item>
     </q-list>
   </div>
+  </q-pull-to-refresh>
 </template>
 
 <script>
@@ -50,7 +52,8 @@ import {
   QItem,
   QItemSide,
   QItemMain,
-  QItemTile
+  QItemTile,
+  QPullToRefresh
 } from 'quasar'
 
 export default {
@@ -64,7 +67,8 @@ export default {
     QItem,
     QItemSide,
     QItemMain,
-    QItemTile
+    QItemTile,
+    QPullToRefresh
   },
   data () {
     return {bikes: null, parkings: null}
@@ -81,6 +85,10 @@ export default {
   methods: {
     goBack () {
       this.dndzgzRouter.navigateToBiziMap()
+    },
+    async refresher (done) {
+      await this.updateEstimations()
+      done()
     },
     async updateEstimations () {
       this.bikes = null
