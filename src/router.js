@@ -36,7 +36,7 @@ export default new VueRouter({
     { name: BIZI_DETAIL_ROUTE, path: '/bizi/:stationId', component: load('BiziEstimations') },
     { name: TAXIS_MAP_ROUTE, path: '/taxis_map', component: load('TaxiMap') },
     { name: TRAM_MAP_ROUTE, path: 'tram_map', component: load('TramMap') },
-    { name: TRAM_DETAIL_ROUTE, path: '/bizi/:tramId', component: load('TramEstimations') },
+    { name: TRAM_DETAIL_ROUTE, path: '/tram/:tramId', component: load('TramEstimations') },
 
     // Always leave this last one
     { path: '*', component: load('Error404') } // Not found
