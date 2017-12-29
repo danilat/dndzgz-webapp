@@ -24,6 +24,10 @@ export const retrieveBiziStationEstimation = (id, apiClient = backendApiClient) 
   return apiClient('bizi', id)
 }
 
+export const retrieveTramStopEstimation = (id, apiClient = backendApiClient) => {
+  return apiClient('tram', id)
+}
+
 const cachedCollections = {}
 export const retreiveUnlessIsCached = async (service, apiClient) => {
   if (isNotCached(cachedCollections[service])) {

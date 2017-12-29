@@ -27,8 +27,8 @@ export const DndZgzRouter = (router) => {
     router.push({ name: TRAM_MAP_ROUTE })
   }
 
-  function navigateToTramDetail () {
-
+  function navigateToTramDetail (id) {
+    router.push({ name: TRAM_DETAIL_ROUTE, params: {tramId: id} })
   }
 
   function navigateToBusDetail (id) {
@@ -54,4 +54,5 @@ export const TAXIS_MAP_ROUTE = 'taxis_map'
 export const TRAM_MAP_ROUTE = 'tram_map'
 export const BUS_DETAIL_ROUTE = 'bus'
 export const BIZI_DETAIL_ROUTE = 'bizi'
+export const TRAM_DETAIL_ROUTE = 'tram'
 export const SERVICE_LIST_ROUTE = 'servicesList'
