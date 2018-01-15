@@ -1,5 +1,5 @@
 <template>
-  <gmap-map
+  <!-- <gmap-map
   :center="center"
   :zoom="16"
   :options="{disableDefaultUI:true, zoomControl: true}">
@@ -36,7 +36,11 @@
     <gmap-polyline v-if="path" :path="path">
     </gmap-polyline>
 
-  </gmap-map>
+  </gmap-map> -->
+  <div class="vue-map-container" style="height:1000px">
+    <div id="map_canvas" ref="map_canvas" class="vue-map">
+    </div>
+  </div>
 </template>
 
 <script>
@@ -90,6 +94,38 @@ export default {
   },
   async created () {
     this.center = this.currentPosition = await userCurrentPosition()
+    const div = window.document.getElementById('map_canvas')
+    const map = window.plugin.google.maps.Map.getMap(div)
+
+    map.addEventListener(window.plugin.google.maps.event.MAP_READY, onMapReady)
+    function onMapReady () {
+      alert(this.markers.length)
+      this.markers.forEach(marker => {
+        map.addMarker({
+          position: marker,
+          title: marker.title,
+          snippet: 'This plugin is awesome!'
+        })
+      })
+      map.animateCamera({
+        target: {lat: 41.641184, lng: -0.894032},
+        zoom: 17,
+        duration: 5000
+      }, function () {
+        map.addMarker({
+          position: {lat: 41.641184, lng: -0.894032},
+          title: 'Welecome to \n' +
+                 'Cordova GoogleMaps plugin for iOS and Android',
+          snippet: 'This plugin is awesome!',
+          animation: window.plugin.google.maps.Animation.BOUNCE
+        }, function (marker) {
+          marker.showInfoWindow()
+          marker.on(window.plugin.google.maps.event.INFO_CLICK, function () {
+            alert('holi!')
+          })
+        })
+      })
+    }
   },
   methods: {
     showMarkerInfo (index) {
