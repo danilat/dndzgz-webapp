@@ -99,14 +99,14 @@ export default {
 
     map.addEventListener(window.plugin.google.maps.event.MAP_READY, onMapReady)
     function onMapReady () {
-      alert(this.markers.length)
-      this.markers.forEach(marker => {
-        map.addMarker({
-          position: marker,
-          title: marker.title,
-          snippet: 'This plugin is awesome!'
-        })
-      })
+      alert(this.markers)
+      // this.markers.forEach(marker => {
+      //   map.addMarker({
+      //     position: marker,
+      //     title: marker.title,
+      //     snippet: 'This plugin is awesome!'
+      //   })
+      // })
       map.animateCamera({
         target: {lat: 41.641184, lng: -0.894032},
         zoom: 17,
