@@ -94,6 +94,8 @@ export default {
   },
   async created () {
     this.center = this.currentPosition = await userCurrentPosition()
+  },
+  async mounted () {
     const div = window.document.getElementById('map_canvas')
     const map = window.plugin.google.maps.Map.getMap(div)
 

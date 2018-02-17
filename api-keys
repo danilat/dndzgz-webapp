@@ -1,0 +1,6 @@
+ios: AIzaSyDEdeGCoPxL0UtBnvU_9EEQRrvlnkMIhPE
+android: AIzaSyC5m6Yasak6E_Q-XKWvBS2VwgymU8ApaSg
+
+cordova plugin add cordova-plugin-googlemaps \
+    --variable API_KEY_FOR_ANDROID="AIzaSyC5m6Yasak6E_Q-XKWvBS2VwgymU8ApaSg" \
+    --variable API_KEY_FOR_IOS="AIzaSyDEdeGCoPxL0UtBnvU_9EEQRrvlnkMIhPE"
