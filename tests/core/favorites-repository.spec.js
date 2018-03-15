@@ -18,5 +18,7 @@ describe('Favorites Repository', () => {
     const favorites = await favoritesRepository.all()
 
     expect(favorites.length).toEqual(2)
+    expect(favorites).toContain(aFavorite)
+    expect(favorites).toContain(anotherFavorite)
   })
 })
