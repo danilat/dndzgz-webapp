@@ -29,13 +29,13 @@ export const retrieveTramStopEstimation = (id, apiClient = backendApiClient) => 
 }
 
 export const markAsFavorite = (name, point, favoritesRepository) => {
-  if(!name){
-    throw new Error("name is required");
+  if (!name) {
+    throw new Error('name is required')
   }
-  if(!point){
-    throw new Error("point is required");
+  if (!point) {
+    throw new Error('point is required')
   }
-  const favorite = Object.assign({name: name}, point);
+  const favorite = Object.assign({name: name}, point)
   return favoritesRepository.put(favorite)
 }
 
