@@ -44,6 +44,18 @@
         </q-item-side>
       </q-item>
     </q-list>
+
+    <q-list highlight>
+      <q-item @click="goToFavorites()" id="favoritesOption">
+        <q-item-side avatar="statics/marker-favorite.png"/>
+        <q-item-main>
+          <q-item-tile label>Favoritos</q-item-tile>
+        </q-item-main>
+        <q-item-side right>
+          <q-item-tile icon="arrow_forward" color="faded" />
+        </q-item-side>
+      </q-item>
+    </q-list>
   </div>
 </template>
 
@@ -92,6 +104,9 @@ export default {
     },
     goToTramMap () {
       this.dndzgzRouter.navigateToTramMap()
+    },
+    goToFavorites () {
+      this.dndzgzRouter.navigateToFavoritesList()
     }
   }
 }

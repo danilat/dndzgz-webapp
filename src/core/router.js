@@ -8,6 +8,7 @@ export const DndZgzRouter = (router) => {
     navigateToBiziDetail,
     navigateToServiceList,
     navigateToTramDetail,
+    navigateToFavoritesList,
     getParam
   }
 
@@ -39,6 +40,10 @@ export const DndZgzRouter = (router) => {
     router.push({ name: BIZI_DETAIL_ROUTE, params: {stationId: id} })
   }
 
+  function navigateToFavoritesList () {
+    router.push({ name: FAVORITE_LIST_ROUTE })
+  }
+
   function navigateToServiceList () {
     router.push({ name: SERVICE_LIST_ROUTE })
   }
@@ -55,4 +60,5 @@ export const TRAM_MAP_ROUTE = 'tram_map'
 export const BUS_DETAIL_ROUTE = 'bus'
 export const BIZI_DETAIL_ROUTE = 'bizi'
 export const TRAM_DETAIL_ROUTE = 'tram'
+export const FAVORITE_LIST_ROUTE = 'favorites'
 export const SERVICE_LIST_ROUTE = 'servicesList'

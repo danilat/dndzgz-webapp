@@ -50,11 +50,23 @@ describe('ServiceList', () => {
   it('click on tram navigates to the map', async () => {
     const navigateToMapSpy = jest.fn()
     wrapper.vm.dndzgzRouter = {navigateToTramMap: navigateToMapSpy}
-    const taxiItem = wrapper.find('#tramOption')
+    const tramItem = wrapper.find('#tramOption')
 
-    taxiItem.trigger('click')
+    tramItem.trigger('click')
 
     expect(navigateToMapSpy).toHaveBeenCalled()
+  })
+  it('has favorites option', () => {
+    expect(wrapper.text()).toContain('Favoritos')
+  })
+  it('click on favorites navigates to the favorites list', async () => {
+    const navigateToFavoritesSpy = jest.fn()
+    wrapper.vm.dndzgzRouter = {navigateToFavoritesList: navigateToFavoritesSpy}
+    const favoritesItem = wrapper.find('#favoritesOption')
+
+    favoritesItem.trigger('click')
+
+    expect(navigateToFavoritesSpy).toHaveBeenCalled()
   })
   it('gets the user current position', async () => {
     expect(wrapper.vm.currentPosition).not.toBeNull()
