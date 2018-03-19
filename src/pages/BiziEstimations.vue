@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     goBack () {
-      this.dndzgzRouter.navigateToBiziMap()
+      this.dndzgzRouter.goBack()
     },
     async refresher (done) {
       await this.updateEstimations()

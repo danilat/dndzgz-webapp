@@ -9,7 +9,8 @@ export const DndZgzRouter = (router) => {
     navigateToServiceList,
     navigateToTramDetail,
     navigateToFavoritesList,
-    getParam
+    getParam,
+    goBack
   }
 
   function navigateToMap () {
@@ -46,6 +47,10 @@ export const DndZgzRouter = (router) => {
 
   function navigateToServiceList () {
     router.push({ name: SERVICE_LIST_ROUTE })
+  }
+
+  function goBack () {
+    router.go(-1)
   }
 
   function getParam (param) {

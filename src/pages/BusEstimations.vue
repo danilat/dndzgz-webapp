@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     goBack () {
-      this.dndzgzRouter.navigateToMap()
+      this.dndzgzRouter.goBack()
     },
     async refresher (done) {
       await this.updateEstimations()
