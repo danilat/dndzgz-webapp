@@ -1,5 +1,6 @@
 <template>
   <q-pull-to-refresh :handler="refresher" pull-message="Tira para actualizar" release-message="Suelta para actualizar" refresh-message="Actualizando...">
+
   <div>
     <q-toolbar color="primary">
       <q-btn flat id="back" @click="goBack()">
@@ -8,8 +9,10 @@
       <q-toolbar-title>
         Parada {{ stationId }}
       </q-toolbar-title>
-      <q-btn flat @click="updateEstimations()">
-        <q-icon name="cached"/>
+
+      <q-btn flat @click="markAsFavorite()">
+        <q-icon name="star"/>
+        <favorite-marker :opened="favoriteOpen" :close="closeFavorite" :point="station" type="bizi"/>
       </q-btn>
     </q-toolbar>
 
@@ -39,8 +42,9 @@
 </template>
 
 <script>
-import { retrieveBiziStationEstimation } from '../core/commands'
+import { retrieveBiziStationEstimation, retrieveAllBiziStations } from '../core/commands'
 import { DndZgzRouter } from '../core/router'
+import FavoriteMarker from '../components/FavoriteMarker'
 
 import {
   QToolbar,
@@ -68,19 +72,20 @@ export default {
     QItemSide,
     QItemMain,
     QItemTile,
-    QPullToRefresh
+    QPullToRefresh,
+    FavoriteMarker
   },
   data () {
-    return {bikes: null, parkings: null}
+    return {bikes: null, parkings: null, favoriteOpen: false, station: {}}
   },
   beforeCreate () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
     this.stationId = this.dndzgzRouter.getParam('stationId')
   },
   async created () {
-    const estimations = await retrieveBiziStationEstimation(this.stationId)
-    this.bikes = estimations.bikes
-    this.parkings = estimations.parkings
+    this.updateEstimations()
+    const allStastions = await retrieveAllBiziStations()
+    this.station = allStastions.find(station => station.id === this.stationId)
   },
   methods: {
     goBack () {
@@ -96,6 +101,12 @@ export default {
       const estimations = await retrieveBiziStationEstimation(this.stationId)
       this.bikes = estimations.bikes
       this.parkings = estimations.parkings
+    },
+    async markAsFavorite () {
+      this.favoriteOpen = true
+    },
+    async closeFavorite () {
+      this.favoriteOpen = false
     }
   }
 }
