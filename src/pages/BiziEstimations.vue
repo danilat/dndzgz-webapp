@@ -102,10 +102,10 @@ export default {
       this.bikes = estimations.bikes
       this.parkings = estimations.parkings
     },
-    async markAsFavorite () {
+    markAsFavorite () {
       this.favoriteOpen = true
     },
-    async closeFavorite () {
+    closeFavorite () {
       this.favoriteOpen = false
     }
   }

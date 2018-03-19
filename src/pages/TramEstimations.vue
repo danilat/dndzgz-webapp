@@ -5,11 +5,12 @@
       <q-btn flat id="back" @click="goBack()">
         <q-icon name="arrow_back" />
       </q-btn>
-      <q-toolbar-title>
-        Parada {{tramStop}}
+      <q-toolbar-title v-if="stop">
+        Parada {{stop.id}} | {{stop.title}}
       </q-toolbar-title>
-      <q-btn flat id="update" @click="updateEstimations()">
-        <q-icon name="cached" />
+      <q-btn flat @click="markAsFavorite()">
+        <q-icon name="star"/>
+        <favorite-marker :opened="favoriteOpen" :close="closeFavorite" :point="stop" type="tram"/>
       </q-btn>
     </q-toolbar>
     <q-list highlight>
@@ -39,8 +40,9 @@
 </template>
 
 <script>
-import { retrieveTramStopEstimation } from '../core/commands'
+import { retrieveTramStopEstimation, retrieveAllTramStops } from '../core/commands'
 import { DndZgzRouter } from '../core/router'
+import FavoriteMarker from '../components/FavoriteMarker'
 
 import {
   QToolbar,
@@ -68,14 +70,17 @@ export default {
     QItemSide,
     QItemMain,
     QItemTile,
-    QPullToRefresh
+    QPullToRefresh,
+    FavoriteMarker
   },
   data () {
-    return {estimations: [], error: null}
+    return {estimations: [], error: null, favoriteOpen: false, stop: {}}
   },
   async beforeCreate () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
     this.tramStop = this.dndzgzRouter.getParam('tramId')
+    const allStops = await retrieveAllTramStops()
+    this.stop = allStops.find(stop => stop.id === this.tramStop)
   },
   async created () {
     await this.updateEstimations()
@@ -96,6 +101,12 @@ export default {
       catch (error) {
         this.error = error.message
       }
+    },
+    markAsFavorite () {
+      this.favoriteOpen = true
+    },
+    closeFavorite () {
+      this.favoriteOpen = false
     }
   }
 }

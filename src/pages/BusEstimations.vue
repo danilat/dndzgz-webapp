@@ -8,8 +8,9 @@
       <q-toolbar-title>
         Poste {{busStop}}
       </q-toolbar-title>
-      <q-btn flat id="update" @click="updateEstimations()">
-        <q-icon name="cached" />
+      <q-btn flat @click="markAsFavorite()">
+        <q-icon name="star"/>
+        <favorite-marker :opened="favoriteOpen" :close="closeFavorite" :point="stop" type="bus"/>
       </q-btn>
     </q-toolbar>
     <q-list highlight>
@@ -39,8 +40,9 @@
 </template>
 
 <script>
-import { retrieveBusStopEstimation } from '../core/commands'
+import { retrieveBusStopEstimation, retrieveAllBusStops } from '../core/commands'
 import { DndZgzRouter } from '../core/router'
+import FavoriteMarker from '../components/FavoriteMarker'
 
 import {
   QToolbar,
@@ -68,10 +70,11 @@ export default {
     QItemSide,
     QItemMain,
     QItemTile,
-    QPullToRefresh
+    QPullToRefresh,
+    FavoriteMarker
   },
   data () {
-    return {estimations: [], error: null}
+    return {estimations: [], error: null, favoriteOpen: false, station: {}}
   },
   beforeCreate () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
@@ -79,6 +82,8 @@ export default {
   },
   async created () {
     await this.updateEstimations()
+    const allStops = await retrieveAllBusStops()
+    this.stop = allStops.find(stop => stop.id === this.busStop)
   },
   methods: {
     goBack () {
@@ -96,6 +101,12 @@ export default {
       catch (error) {
         this.error = error.message
       }
+    },
+    markAsFavorite () {
+      this.favoriteOpen = true
+    },
+    closeFavorite () {
+      this.favoriteOpen = false
     }
   }
 }
