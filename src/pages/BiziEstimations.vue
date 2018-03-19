@@ -6,8 +6,8 @@
       <q-btn flat id="back" @click="goBack()">
         <q-icon name="arrow_back" />
       </q-btn>
-      <q-toolbar-title>
-        Parada {{ stationId }}
+      <q-toolbar-title v-if="station">
+        Parada {{station.id}} | {{station.title}}
       </q-toolbar-title>
 
       <q-btn flat @click="markAsFavorite()">

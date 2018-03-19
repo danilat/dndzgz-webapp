@@ -5,8 +5,8 @@
       <q-btn flat id="back" @click="goBack()">
         <q-icon name="arrow_back" />
       </q-btn>
-      <q-toolbar-title>
-        Poste {{busStop}}
+      <q-toolbar-title v-if="stop">
+        Poste {{stop.id}} | {{stop.title}}
       </q-toolbar-title>
       <q-btn flat @click="markAsFavorite()">
         <q-icon name="star"/>
@@ -74,7 +74,7 @@ export default {
     FavoriteMarker
   },
   data () {
-    return {estimations: [], error: null, favoriteOpen: false, station: {}}
+    return {estimations: [], error: null, favoriteOpen: false, stop: {}}
   },
   beforeCreate () {
     this.dndzgzRouter = new DndZgzRouter(this.$router)
