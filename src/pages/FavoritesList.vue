@@ -19,6 +19,7 @@
 <script>
 import { retrieveAllFavorites } from '../core/commands'
 import { favoritesRepository } from '../core/favorites-repository'
+import {DndZgzRouter} from '../core/router'
 
 import MapHeader from '../components/MapHeader'
 import {
@@ -50,11 +51,20 @@ export default {
     }
   },
   async created () {
+    this.dndzgzRouter = new DndZgzRouter(this.$router)
     this.favorites = await retrieveAllFavorites(favoritesRepository)
   },
   methods: {
-    goToFavoriteDetail () {
-
+    goToFavoriteDetail (favorite) {
+      if (favorite.type === 'bus') {
+        this.dndzgzRouter.navigateToBusDetail(favorite.id)
+      }
+      else if (favorite.type === 'bizi') {
+        this.dndzgzRouter.navigateToBiziDetail(favorite.id)
+      }
+      else {
+        this.dndzgzRouter.navigateToTramDetail(favorite.id)
+      }
     }
   }
 }
