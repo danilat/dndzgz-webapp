@@ -1,15 +1,21 @@
 <template>
-  <q-modal v-model="opened" content-css="padding: 20px">
-    Dale un nombre a tu favorito
-    <q-input v-model="name" id="favorite_name"/>
+  <q-modal v-model="isOpen" content-css="padding: 20px">
+    Dale un nombre a tu favorito para acordarte más adelante
+    <q-input v-model="name" id="favorite_name" required="required" placeholder="Ej: para ir a clase..."/>
     <q-btn
       color="primary"
       @click="saveAndClose"
       label="Guardar"
       id="favorite_button"
-      required="required"
     >
     Guardar
+    </q-btn>
+    <q-btn
+      color="warning"
+      @click="close"
+      label="Cerrar"
+    >
+    Cerrar
     </q-btn>
   </q-modal>
 </template>
@@ -37,8 +43,7 @@ export default {
   },
   props: {
     opened: {
-      type: Boolean,
-      required: true
+      type: Boolean
     },
     close: {
       type: Function,
@@ -53,10 +58,19 @@ export default {
       required: true
     }
   },
+  computed: {
+    isOpen: {
+      get: function () {
+        return this.opened
+      },
+      set: function (value) {
+        if (value === false) {
+          this.close()
+        }
+      }
+    }
+  },
   methods: {
-    closes () {
-      console.log('closed')
-    },
     async saveAndClose () {
       await markAsFavorite(this.name, this.point, this.type, favoritesRepository)
       this.close()
