@@ -3,11 +3,22 @@
     <map-header title="Favoritos"/>
 
     <q-list highlight>
-      <q-item @click="goToFavoriteDetail()">
+      <q-item>
         <q-item-side avatar="statics/marker-bus.png"/>
         <q-item-main>
           <q-item-tile label>favorite title</q-item-tile>
           favorite address
+        </q-item-main>
+        <q-item-side right>
+          <q-item-tile icon="arrow_forward" color="faded" />
+        </q-item-side>
+      </q-item>
+
+      <q-item @click="goToFavoriteDetail(favorite)" v-for="favorite in favorites">
+        <q-item-side avatar="statics/marker-bus.png"/>
+        <q-item-main>
+          <q-item-tile label>favorite.name</q-item-tile>
+          favorite.title
         </q-item-main>
         <q-item-side right>
           <q-item-tile icon="arrow_forward" color="faded" />
@@ -18,6 +29,7 @@
 </template>
 <script>
 import { retrieveAllFavorites } from '../core/commands'
+import { favoritesRepository } from '../core/favorites-repository'
 
 import MapHeader from '../components/MapHeader'
 import {
@@ -49,7 +61,7 @@ export default {
     }
   },
   async created () {
-    this.favorites = await retrieveAllFavorites()
+    this.favorites = await retrieveAllFavorites(favoritesRepository)
   },
   methods: {
     goToFavoriteDetail () {

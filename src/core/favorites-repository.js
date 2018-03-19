@@ -1,12 +1,12 @@
 const collection = {}
 export const favoritesRepository = {
-  put(favorite){
+  put (favorite) {
     collection[favorite.id] = favorite
   },
-  get(id){
+  get (id) {
     return collection[id]
   },
-  all(){
+  all () {
     return Object.values(collection)
   }
 }
