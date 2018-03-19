@@ -3,22 +3,11 @@
     <map-header title="Favoritos"/>
 
     <q-list highlight>
-      <q-item>
-        <q-item-side avatar="statics/marker-bus.png"/>
-        <q-item-main>
-          <q-item-tile label>favorite title</q-item-tile>
-          favorite address
-        </q-item-main>
-        <q-item-side right>
-          <q-item-tile icon="arrow_forward" color="faded" />
-        </q-item-side>
-      </q-item>
-
       <q-item @click="goToFavoriteDetail(favorite)" v-for="favorite in favorites">
-        <q-item-side avatar="statics/marker-bus.png"/>
+        <q-item-side :avatar="'statics/marker-'+favorite.type+'.png'"/>
         <q-item-main>
-          <q-item-tile label>favorite.name</q-item-tile>
-          favorite.title
+          <q-item-tile label>{{favorite.name}}</q-item-tile>
+          {{favorite.title}} | ID: {{favorite.id}}
         </q-item-main>
         <q-item-side right>
           <q-item-tile icon="arrow_forward" color="faded" />
