@@ -39,6 +39,10 @@ export const markAsFavorite = (name, point, favoritesRepository) => {
   return favoritesRepository.put(favorite)
 }
 
+export const retrieveAllFavorites = (favoritesRepository) => {
+  return favoritesRepository.all()
+}
+
 const cachedCollections = {}
 export const retreiveUnlessIsCached = async (service, apiClient) => {
   if (isNotCached(cachedCollections[service])) {
