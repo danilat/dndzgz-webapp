@@ -1,5 +1,5 @@
 
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import BiziMap from '@/pages/BiziMap'
 import { retrieveAllBiziStations } from '../../src/core/commands'
 

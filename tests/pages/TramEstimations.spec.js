@@ -1,4 +1,4 @@
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import TramEstimations from '@/pages/TramEstimations'
 jest.mock('@/core/router')
 jest.mock('@/core/commands')

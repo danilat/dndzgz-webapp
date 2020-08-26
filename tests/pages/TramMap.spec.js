@@ -1,5 +1,5 @@
 
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import TramMap from '@/pages/TramMap'
 import { retrieveAllTramStops } from '../../src/core/commands'
 

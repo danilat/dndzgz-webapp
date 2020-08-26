@@ -1,5 +1,5 @@
 
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import ServiceList from '@/pages/ServiceList'
 jest.mock('@/core/geolocation')
 

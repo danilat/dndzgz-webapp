@@ -1,5 +1,5 @@
 
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import FavoritesList from '@/pages/FavoritesList'
 jest.mock('@/core/commands')
 import {fakeFavorites} from '@/core/__mocks__/fake-favorites'

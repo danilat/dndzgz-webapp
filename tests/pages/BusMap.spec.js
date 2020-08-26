@@ -1,5 +1,5 @@
 
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import BusMap from '@/pages/BusMap'
 import { retrieveAllBusStops } from '../../src/core/commands'
 jest.mock('@/core/geolocation')

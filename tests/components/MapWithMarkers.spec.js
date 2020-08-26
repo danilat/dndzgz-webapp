@@ -1,4 +1,4 @@
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import MapWithMarkers from '@/components/MapWithMarkers'
 jest.mock('@/core/geolocation')
 

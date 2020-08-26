@@ -1,4 +1,4 @@
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import FavoriteMarker from '@/components/FavoriteMarker'
 import {retrieveAllFavorites} from '@/core/commands'
 import {favoritesRepository} from '@/core/favorites-repository'

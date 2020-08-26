@@ -1,5 +1,5 @@
 
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import TaxiMap from '@/pages/TaxiMap'
 
 describe('TaxiMap', () => {

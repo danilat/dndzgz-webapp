@@ -1,4 +1,4 @@
-import { mount } from 'vue-test-utils'
+import { mount } from '@vue/test-utils'
 import MapHeader from '@/components/MapHeader'
 
 describe('MapHeader', () => {
