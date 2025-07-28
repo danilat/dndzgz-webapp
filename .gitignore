@@ -5,3 +5,6 @@ dist/
 npm-debug.log*
 cordova/platforms
 cordova/plugins
+
+# Local Netlify folder
+.netlify
