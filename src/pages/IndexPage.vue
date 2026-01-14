@@ -65,5 +65,16 @@
 </template>
 
 <script setup>
-//
+import { onMounted } from 'vue'
+import { useGeolocation } from '../composables/useGeolocation'
+
+const { getPosition } = useGeolocation()
+
+onMounted(async () => {
+  try {
+    await getPosition()
+  } catch (e) {
+    console.error('Could not get position', e)
+  }
+})
 </script>
