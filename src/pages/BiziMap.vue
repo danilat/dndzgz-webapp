@@ -1,45 +1,50 @@
 <template>
-  <div>
-    <map-header title="Bizi"/>
-
-    <map-with-markers
-      icon="statics/marker-bizi.png"
+  <q-page class="flex flex-center column no-wrap">
+    <MapHeader title="Bizi" class="full-width" />
+    <MapWithMarkers
+      v-if="stations.length > 0"
+      icon="marker-bizi.png"
       :markers="stations"
       :infoWindowContentFormatter="infoWindowContentFormatter"
-      :infoWindowAction="goToDetail">
-    </map-with-markers>
-  </div>
+      :infoWindowAction="goToDetail"
+      class="full-width col-grow"
+    />
+    <div v-else class="flex flex-center col-grow">
+      <q-spinner color="primary" size="3em" />
+    </div>
+  </q-page>
 </template>
 
-<script>
-import {DndZgzRouter} from '../core/router'
-import { retrieveAllBiziStations } from '../core/commands'
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import MapHeader from 'components/MapHeader.vue'
+import MapWithMarkers from 'components/MapWithMarkers.vue'
+import { retrieveAllBiziStations } from '../services/data'
 
-import MapWithMarkers from '../components/MapWithMarkers'
-import MapHeader from '../components/MapHeader'
+const stations = ref([])
+const router = useRouter()
 
-export default {
-  components: {
-    MapHeader,
-    MapWithMarkers
-  },
-  data () {
-    return {stations: []}
-  },
-  async beforeCreate () {
-    this.dndzgzRouter = new DndZgzRouter(this.$router)
-    this.stations = await retrieveAllBiziStations()
-  },
-  methods: {
-    goToDetail (marker) {
-      this.dndzgzRouter.navigateToBiziDetail(marker.id)
-    },
-    infoWindowContentFormatter (station) {
-      return station.title
-    }
-  }
+const infoWindowContentFormatter = (station) => {
+  return station.title
 }
+
+const goToDetail = (marker) => {
+  router.push({ name: 'bizi', params: { stationId: marker.id } })
+}
+
+onMounted(async () => {
+  try {
+    stations.value = await retrieveAllBiziStations()
+  } catch (error) {
+    console.error('Failed to load stations', error)
+  }
+})
 </script>
 
-<style>
+<style scoped>
+/* Ensure map takes available space */
+.col-grow {
+  flex-grow: 1;
+}
 </style>

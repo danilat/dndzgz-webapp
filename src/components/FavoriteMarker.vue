@@ -1,84 +1,61 @@
 <template>
-  <q-modal v-model="isOpen" content-css="padding: 20px">
-    Dale un nombre a tu favorito para acordarte más adelante
-    <q-input v-model="name" id="favorite_name" required="required" placeholder="Ej: para ir a clase..."/>
-    <q-btn
-      color="primary"
-      @click="saveAndClose"
-      label="Guardar"
-      id="favorite_button"
-    >
-    Guardar
-    </q-btn>
-    <q-btn
-      color="warning"
-      @click="close"
-      label="Cerrar"
-    >
-    Cerrar
-    </q-btn>
-  </q-modal>
+  <q-dialog v-model="internalOpened" @hide="close">
+    <q-card style="min-width: 300px">
+      <q-card-section>
+        <div class="text-h6">Nombre de favorito</div>
+        <div class="text-caption">Dale un nombre a tu favorito para acordarte más adelante</div>
+      </q-card-section>
+
+      <q-card-section class="q-pt-none">
+        <q-input
+          v-model="name"
+          autofocus
+          placeholder="Ej: para ir a clase..."
+          @keyup.enter="saveAndClose"
+        />
+      </q-card-section>
+
+      <q-card-actions align="right" class="text-primary">
+        <q-btn flat label="Cerrar" color="warning" @click="close" />
+        <q-btn flat label="Guardar" color="primary" @click="saveAndClose" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 
-<script>
+<script setup>
+import { ref, watch } from 'vue'
+import { markAsFavorite } from '../services/data'
 
-import { favoritesRepository } from '../core/favorites-repository'
-import { markAsFavorite } from '../core/commands'
+const props = defineProps({
+  opened: Boolean,
+  point: { type: Object, required: true },
+  type: { type: String, required: true }
+})
 
-import {
-  QModal,
-  QInput,
-  QBtn
-} from 'quasar'
+const emit = defineEmits(['update:opened', 'close'])
 
-export default {
-  name: 'FavoriteMarker',
-  components: {
-    QModal,
-    QInput,
-    QBtn
-  },
-  data () {
-    return {name: ''}
-  },
-  props: {
-    opened: {
-      type: Boolean
-    },
-    close: {
-      type: Function,
-      required: true
-    },
-    point: {
-      type: Object,
-      required: true
-    },
-    type: {
-      type: String,
-      required: true
-    }
-  },
-  computed: {
-    isOpen: {
-      get: function () {
-        return this.opened
-      },
-      set: function (value) {
-        if (value === false) {
-          this.close()
-        }
-      }
-    }
-  },
-  methods: {
-    async saveAndClose () {
-      await markAsFavorite(this.name, this.point, this.type, favoritesRepository)
-      this.close()
-      this.name = ''
-    }
+const internalOpened = ref(props.opened)
+const name = ref('')
+
+watch(() => props.opened, (val) => {
+  internalOpened.value = val
+})
+
+watch(internalOpened, (val) => {
+  emit('update:opened', val)
+})
+
+const close = () => {
+  internalOpened.value = false
+  emit('close')
+}
+
+const saveAndClose = () => {
+  if (name.value.trim()) {
+    markAsFavorite(name.value, props.point, props.type)
+    close()
+    name.value = ''
   }
 }
 </script>
-
-<style>
-</style>

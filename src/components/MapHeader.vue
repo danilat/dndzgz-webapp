@@ -1,52 +1,32 @@
 <template>
-  <q-toolbar color="primary">
-    <q-btn flat id="back" @click="goBack()">
-      <q-icon name="arrow_back" />
-    </q-btn>
-    <q-toolbar-title id="header_title">
-      {{title}}
+  <q-toolbar class="bg-primary text-white">
+    <q-btn flat round dense icon="arrow_back" @click="goBack" />
+    <q-toolbar-title>
+      {{ title }}
     </q-toolbar-title>
   </q-toolbar>
 </template>
 
-<script>
+<script setup>
+import { useRouter } from 'vue-router'
 
-import {DndZgzRouter} from '../core/router'
+defineProps({
+  title: {
+    type: String,
+    required: true
+  }
+})
 
-import {
-  QToolbar,
-  QToolbarTitle,
-  QBtn,
-  QIcon
-} from 'quasar'
+const router = useRouter()
 
-export default {
-  name: 'MapHeader',
-  components: {
-    QToolbar,
-    QToolbarTitle,
-    QBtn,
-    QIcon
-  },
-  data () {
-    return {}
-  },
-  props: {
-    title: {
-      type: String,
-      required: true
-    }
-  },
-  beforeCreate () {
-    this.dndzgzRouter = new DndZgzRouter(this.$router)
-  },
-  methods: {
-    goBack () {
-      this.dndzgzRouter.navigateToServiceList()
-    }
+const goBack = () => {
+  // Logic from legacy: navigateToServiceList usually means home in this app structure?
+  // Or just try history back.
+  // If no history, replace with home.
+  if (window.history.state && window.history.state.back) {
+    router.back()
+  } else {
+    router.push('/')
   }
 }
 </script>
-
-<style>
-</style>

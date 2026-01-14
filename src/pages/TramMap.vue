@@ -1,45 +1,49 @@
 <template>
-  <div>
-    <map-header title="Tranvía"/>
-
-    <map-with-markers
-      icon="statics/marker-tram.png"
-      :markers="stops"
+  <q-page class="flex flex-center column no-wrap">
+    <MapHeader title="Tranvía" class="full-width" />
+    <MapWithMarkers
+      v-if="stations.length > 0"
+      icon="marker-tram.png"
+      :markers="stations"
       :infoWindowContentFormatter="infoWindowContentFormatter"
-      :infoWindowAction="goToDetail">
-    </map-with-markers>
-  </div>
+      :infoWindowAction="goToDetail"
+      class="full-width col-grow"
+    />
+    <div v-else class="flex flex-center col-grow">
+      <q-spinner color="primary" size="3em" />
+    </div>
+  </q-page>
 </template>
 
-<script>
-import {retrieveAllTramStops} from '../../src/core/commands'
-import {DndZgzRouter} from '../core/router'
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import MapHeader from 'components/MapHeader.vue'
+import MapWithMarkers from 'components/MapWithMarkers.vue'
+import { retrieveAllTramStops } from '../services/data'
 
-import MapWithMarkers from '../components/MapWithMarkers'
-import MapHeader from '../components/MapHeader'
+const stations = ref([])
+const router = useRouter()
 
-export default {
-  components: {
-    MapWithMarkers,
-    MapHeader
-  },
-  data () {
-    return {stops: []}
-  },
-  async beforeCreate () {
-    this.dndzgzRouter = new DndZgzRouter(this.$router)
-    this.stops = await retrieveAllTramStops()
-  },
-  methods: {
-    infoWindowContentFormatter (selected) {
-      return selected.title
-    },
-    goToDetail (marker) {
-      this.dndzgzRouter.navigateToTramDetail(marker.id)
-    }
-  }
+const infoWindowContentFormatter = (station) => {
+  return station.title
 }
+
+const goToDetail = (marker) => {
+  router.push({ name: 'tram', params: { stationId: marker.id } })
+}
+
+onMounted(async () => {
+  try {
+    stations.value = await retrieveAllTramStops()
+  } catch (error) {
+    console.error('Failed to load stations', error)
+  }
+})
 </script>
 
-<style>
+<style scoped>
+.col-grow {
+  flex-grow: 1;
+}
 </style>

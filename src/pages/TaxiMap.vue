@@ -1,39 +1,49 @@
 <template>
-  <div>
-    <map-header title="Taxis"/>
-
-    <map-with-markers
-      icon="statics/marker-taxis.png"
-      :markers="stops"
-      :infoWindowContentFormatter="infoWindowContentFormatter">
-    </map-with-markers>
-  </div>
+  <q-page class="flex flex-center column no-wrap">
+    <MapHeader title="Taxi" class="full-width" />
+    <MapWithMarkers
+      v-if="stations.length > 0"
+      icon="marker-taxis.png"
+      :markers="stations"
+      :infoWindowContentFormatter="infoWindowContentFormatter"
+      :infoWindowAction="null" 
+      class="full-width col-grow"
+    />
+    <div v-else class="flex flex-center col-grow">
+      <q-spinner color="primary" size="3em" />
+    </div>
+  </q-page>
 </template>
 
-<script>
-import { retrieveAllTaxiStops } from '../../src/core/commands'
+<script setup>
+import { ref, onMounted } from 'vue'
+import MapHeader from 'components/MapHeader.vue'
+import MapWithMarkers from 'components/MapWithMarkers.vue'
+import { retrieveAllTaxiStops } from '../services/data'
 
-import MapWithMarkers from '../components/MapWithMarkers'
-import MapHeader from '../components/MapHeader'
+const stations = ref([])
 
-export default {
-  components: {
-    MapWithMarkers,
-    MapHeader
-  },
-  data () {
-    return {stops: []}
-  },
-  async beforeCreate () {
-    this.stops = await retrieveAllTaxiStops()
-  },
-  methods: {
-    infoWindowContentFormatter (selected) {
-      return selected.title
-    }
-  }
+const infoWindowContentFormatter = (station) => {
+  return station.title
 }
+
+// Taxi usually doesn't have detail page in legacy? 
+// Legacy ServiceList had goToTaxiMap.
+// Legacy commands had retrieveAllTaxiStops.
+// Legacy router had TAXIS_MAP_ROUTE, but NO detail route for taxi (only Bizi, Tram, Bus).
+// So 'infoWindowAction' is null.
+
+onMounted(async () => {
+  try {
+    stations.value = await retrieveAllTaxiStops()
+  } catch (error) {
+    console.error('Failed to load stations', error)
+  }
+})
 </script>
 
-<style>
+<style scoped>
+.col-grow {
+  flex-grow: 1;
+}
 </style>

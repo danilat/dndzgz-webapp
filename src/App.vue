@@ -1,15 +1,7 @@
 <template>
-  <!-- Don't drop "q-app" class -->
-  <div id="q-app">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
-<script>
-/*
- * Root component
- */
-export default {}
+<script setup>
+//
 </script>
-
-<style></style>

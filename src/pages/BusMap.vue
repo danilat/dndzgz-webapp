@@ -1,48 +1,49 @@
 <template>
-  <div>
-    <map-header title="Bus"/>
-
-    <map-with-markers
-      icon="statics/marker-bus.png"
-      :markers="stops"
+  <q-page class="flex flex-center column no-wrap">
+    <MapHeader title="Autobuses" class="full-width" />
+    <MapWithMarkers
+      v-if="stations.length > 0"
+      icon="marker-bus.png"
+      :markers="stations"
       :infoWindowContentFormatter="infoWindowContentFormatter"
-      :infoWindowAction="goToDetail">
-    </map-with-markers>
-  </div>
+      :infoWindowAction="goToDetail"
+      class="full-width col-grow"
+    />
+    <div v-else class="flex flex-center col-grow">
+      <q-spinner color="primary" size="3em" />
+    </div>
+  </q-page>
 </template>
 
-<script>
-import { retrieveAllBusStops } from '../core/commands'
-import { userCurrentPosition } from '../core/geolocation'
-import {DndZgzRouter} from '../core/router'
+<script setup>
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import MapHeader from 'components/MapHeader.vue'
+import MapWithMarkers from 'components/MapWithMarkers.vue'
+import { retrieveAllBusStops } from '../services/data'
 
-import MapWithMarkers from '../components/MapWithMarkers'
-import MapHeader from '../components/MapHeader'
+const stations = ref([])
+const router = useRouter()
 
-export default {
-  components: {
-    MapHeader,
-    MapWithMarkers
-  },
-  data () {
-    return {
-      stops: []
-    }
-  },
-  async beforeCreate () {
-    this.dndzgzRouter = new DndZgzRouter(this.$router)
-    this.center = this.currentPosition = await userCurrentPosition()
-  },
-  async created () {
-    this.stops = await retrieveAllBusStops()
-  },
-  methods: {
-    infoWindowContentFormatter (selected) {
-      return `${selected.title} (${selected.lines.join(', ')})`
-    },
-    goToDetail (marker) {
-      this.dndzgzRouter.navigateToBusDetail(marker.id)
-    }
-  }
+const infoWindowContentFormatter = (station) => {
+  return station.title
 }
+
+const goToDetail = (marker) => {
+  router.push({ name: 'bus', params: { busId: marker.id } })
+}
+
+onMounted(async () => {
+  try {
+    stations.value = await retrieveAllBusStops()
+  } catch (error) {
+    console.error('Failed to load stations', error)
+  }
+})
 </script>
+
+<style scoped>
+.col-grow {
+  flex-grow: 1;
+}
+</style>
