@@ -1,11 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { 
-  retrieveAllBusStops, 
-  retrieveAllBiziStations, 
+import {
+  retrieveAllBusStops,
   retrieveBusStopEstimation,
   clearFromCache,
   markAsFavorite,
-  retrieveAllFavorites
+  retrieveAllFavorites,
 } from '../data'
 import { backendApiClient } from '../api'
 import { favoritesRepository } from '../favorites'
@@ -24,8 +23,8 @@ describe('Data Service', () => {
     const mockResponse = {
       locations: [
         { id: '1', title: 'Stop 1', lon: -0.8, lat: 41.6 },
-        { id: '2', title: 'Stop 2', lon: -0.9, lat: 41.7 }
-      ]
+        { id: '2', title: 'Stop 2', lon: -0.9, lat: 41.7 },
+      ],
     }
     backendApiClient.mockResolvedValue(mockResponse)
 
@@ -61,7 +60,7 @@ describe('Data Service', () => {
       name: 'My Fav',
       type: 'bus',
       lat: 1,
-      lng: 2
+      lng: 2,
     })
   })
 

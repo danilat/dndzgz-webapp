@@ -5,32 +5,29 @@ import { retrieveAllTaxiStops } from '../../services/data'
 import { useRouter } from 'vue-router'
 
 vi.mock('../../services/data', () => ({
-  retrieveAllTaxiStops: vi.fn()
+  retrieveAllTaxiStops: vi.fn(),
 }))
 
 vi.mock('vue-router', () => ({
-  useRouter: vi.fn()
+  useRouter: vi.fn(),
 }))
 
 describe('TaxiMap', () => {
-  let wrapper
   const push = vi.fn()
-  const mockStops = [
-    { id: '1', title: 'Taxi Stand 1', lat: 41.6, lng: -0.8 }
-  ]
+  const mockStops = [{ id: '1', title: 'Taxi Stand 1', lat: 41.6, lng: -0.8 }]
 
   beforeEach(async () => {
     useRouter.mockReturnValue({ push })
     retrieveAllTaxiStops.mockResolvedValue(mockStops)
-    
-    wrapper = mount(TaxiMap, {
+
+    mount(TaxiMap, {
       global: {
         stubs: {
           MapHeader: true,
           MapWithMarkers: true,
-          'q-page': true
-        }
-      }
+          'q-page': true,
+        },
+      },
     })
   })
 

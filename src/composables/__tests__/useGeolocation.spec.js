@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeAll, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { useGeolocation } from '../useGeolocation'
 
 const a_latitude = 41.6488
@@ -11,8 +11,8 @@ describe('useGeolocation', () => {
     getPosition = useGeolocation().getPosition
     vi.stubGlobal('navigator', {
       geolocation: {
-        getCurrentPosition: vi.fn()
-      }
+        getCurrentPosition: vi.fn(),
+      },
     })
   })
 
@@ -36,11 +36,13 @@ describe('useGeolocation', () => {
       await expect(getPosition()).rejects.toThrow('No podemos obtener tu localización')
     })
   })
-  
+
   describe('when geolocation is not available', () => {
     it('throws error if navigator.geolocation is missing', async () => {
       vi.stubGlobal('navigator', {})
-      await expect(getPosition()).rejects.toThrow('La geolocalización no está disponible en este dispositivo')
+      await expect(getPosition()).rejects.toThrow(
+        'La geolocalización no está disponible en este dispositivo',
+      )
     })
   })
 })
