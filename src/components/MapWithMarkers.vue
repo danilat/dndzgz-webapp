@@ -15,7 +15,7 @@
           position: marker,
           title: marker.title,
           icon: icon,
-          clickable: true
+          clickable: true,
         }"
         @click="showMarkerInfo(index)"
       />
@@ -24,7 +24,7 @@
         v-if="infoWindow.opened"
         :options="{
           position: infoWindow.marker,
-          pixelOffset: { width: 0, height: -35 }
+          pixelOffset: { width: 0, height: -35 },
         }"
         @closeclick="closeInfoWindow"
       >
@@ -50,7 +50,7 @@
           position: currentPosition,
           title: 'Tu posición',
           icon: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-          clickable: true
+          clickable: true,
         }"
         @click="center = currentPosition"
       />
@@ -61,10 +61,29 @@
           path: path,
           strokeColor: '#FF0000',
           strokeOpacity: 1.0,
-          strokeWeight: 2
+          strokeWeight: 2,
         }"
       />
     </GoogleMap>
+
+    <q-dialog v-model="showTooFarDialog" persistent>
+      <q-card style="min-width: 280px">
+        <q-card-section class="row items-center">
+          <q-icon name="location_off" color="warning" size="2rem" class="q-mr-sm" />
+          <span class="text-h6">Estás lejos de Zaragoza</span>
+        </q-card-section>
+
+        <q-card-section>
+          Parece que estás algo lejos de Zaragoza. Esta aplicación está diseñada para los servicios
+          de transporte de Zaragoza, por lo que el mapa se centrará en la ciudad y no en tu
+          ubicación.
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Entendido" color="primary" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -80,20 +99,46 @@ const props = defineProps({
   icon: { type: String, required: true },
   infoWindowContentFormatter: { type: Function, required: true },
   infoWindowAction: { type: Function, default: null },
-  path: { type: Array, default: null }
+  path: { type: Array, default: null },
 })
 
-const center = ref({ lat: 41.641184, lng: -0.894032 })
+const DEFAULT_CENTER = { lat: 41.641184, lng: -0.894032 }
+const MAX_DISTANCE_FROM_CENTER_KM = 30
+
+const center = ref({ ...DEFAULT_CENTER })
 const zoom = ref(16)
 const { coords, getPosition } = useGeolocation()
 
 const currentPosition = computed(() => coords.value)
+const showTooFarDialog = ref(false)
 
 const infoWindow = ref({
   opened: false,
   marker: null,
-  content: ''
+  content: '',
 })
+
+/**
+ * Calculates the distance in kilometers between two GPS coordinates
+ * using the Haversine formula
+ */
+const calculateDistanceKm = (coord1, coord2) => {
+  const EARTH_RADIUS_KM = 6371
+  const toRadians = (degrees) => degrees * (Math.PI / 180)
+
+  const lat1Rad = toRadians(coord1.lat)
+  const lat2Rad = toRadians(coord2.lat)
+  const deltaLat = toRadians(coord2.lat - coord1.lat)
+  const deltaLng = toRadians(coord2.lng - coord1.lng)
+
+  const a =
+    Math.sin(deltaLat / 2) ** 2 +
+    Math.cos(lat1Rad) * Math.cos(lat2Rad) * Math.sin(deltaLng / 2) ** 2
+
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+  return EARTH_RADIUS_KM * c
+}
 
 const showMarkerInfo = (index) => {
   const selected = props.markers[index]
@@ -117,7 +162,12 @@ onMounted(async () => {
   try {
     const pos = await getPosition()
     if (pos) {
-      center.value = pos
+      const distanceFromCenter = calculateDistanceKm(pos, DEFAULT_CENTER)
+      if (distanceFromCenter <= MAX_DISTANCE_FROM_CENTER_KM) {
+        center.value = pos
+      } else {
+        showTooFarDialog.value = true
+      }
     }
   } catch (err) {
     console.error('Geolocation failed', err)
