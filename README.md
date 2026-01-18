@@ -1,43 +1,86 @@
-# DNDzgzDNDzgz Web AppDani Latorre (dndzgz-v2)
+# DNDzgz
 
-A Quasar Project
+> 🚌 Citizen transport services in Zaragoza
 
-## Install the dependencies
+A progressive web application to check real-time information about public transport in Zaragoza, Spain. Built with [Quasar Framework](https://quasar.dev/) and Vue 3.
+
+## Features
+
+- 🚍 **Bus** - Real-time bus stop estimations and map
+- 🚲 **Bizi** - Bike sharing stations with availability info
+- 🚊 **Tram** - Tram stop estimations and route map
+- 🚕 **Taxi** - Taxi stand locations
+- ⭐ **Favorites** - Save your frequent stops for quick access
+- 📍 **Geolocation** - Automatically centers maps on your location (within Zaragoza area)
+
+## Requirements
+
+- Node.js >= 20
+- npm >= 6.13.4
+
+## Setup
+
+### Install dependencies
 
 ```bash
-yarn
-# or
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Environment Variables
 
-```bash
-quasar dev
+Create a `.env` file with:
+
+```
+VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
 ```
 
-### Lint the files
+## Development
+
+### Start the dev server
 
 ```bash
-yarn lint
-# or
+npm run dev
+```
+
+### Run tests
+
+```bash
+npm test
+```
+
+### Lint files
+
+```bash
 npm run lint
 ```
 
-### Format the files
+### Format code
 
 ```bash
-yarn format
-# or
 npm run format
 ```
 
-### Build the app for production
+## Production
+
+### Build for production
 
 ```bash
-quasar build
+npm run build
 ```
 
-### Customize the configuration
+### Deploy to Netlify
 
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+```bash
+npm run deploy
+```
+
+## Tech Stack
+
+- **Framework**: [Vue 3](https://vuejs.org/) + [Quasar v2](https://quasar.dev/)
+- **Maps**: [vue3-google-map](https://github.com/inocan-group/vue3-google-map)
+- **Testing**: [Vitest](https://vitest.dev/) + [Vue Test Utils](https://test-utils.vuejs.org/)
+- **Hosting**: [Netlify](https://www.netlify.com/)
+
+## Author
+
+**Dani Latorre** - [dani@danilat.com](mailto:dani@danilat.com)
